@@ -11,6 +11,28 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+
+
+
+// Halaman Admin
+	Route::middleware(['auth'])->group(function() {
+		// Dashboard Route
+		Route::resource('/', 'Admin\DashboardController');
+	});
+
+
+
+
+
+
+    Route::get('/app-admin', function() {
+        return redirect('/login');
+    });

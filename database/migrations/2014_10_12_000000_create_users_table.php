@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->unsignedBigInteger('perusahaan_id')->nullable();
             $table->enum('role', ['pemilik', 'administrator', 'anggota'])->default('pemilik');
+            $table->string('gambar')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

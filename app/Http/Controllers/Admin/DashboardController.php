@@ -10,11 +10,6 @@ use App\User;
 
 class DashboardController extends Controller {
 
-    public function __construct()
-    {
-        $this->middleware('checkPerusahaanIdForAll');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -27,7 +22,7 @@ class DashboardController extends Controller {
             'user'  => Auth::user(),
         ];
 
-        return view('admin.dashboard.index', $data);
+        return view('admin.pages.dashboard.index', $data);
     }
 
     /**

@@ -14,3 +14,4 @@
         application: "argon-dashboard-free"
       });
   </script>
+  @yield('script')

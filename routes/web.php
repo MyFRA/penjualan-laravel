@@ -22,22 +22,22 @@ Route::get('/', function () {
 // Halaman Admin
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin/bridge', function () {
-        if (Auth::user()->perusahaan_id == NULL) {
-            return redirect('/admin/perusahaan');
-        }
-
+        if (Auth::user()->perusahaan_id == NULL) return redirect('/admin/perusahaan');
         return redirect('/admin/dashboard');
     });
+
+    // Perusahaan Route
+    Route::resource('/admin/perusahaan', 'Admin\PerusahaanController');
 
     Route::get('/admin/logout', function () {
         Auth::logout();
     });
 
-    // Dashboard Route
-    Route::resource('/admin/dashboard', 'Admin\DashboardController');
+    Route::middleware(['checkPerusahaanIdForAll'])->group(function() {
+        // Dashboard Route
+        Route::resource('/admin/dashboard', 'Admin\DashboardController');
+    });
 
-    // Perusahaan Route
-    Route::resource('/admin/perusahaan', 'Admin\PerusahaanController');
 });
 
 Route::get('/app-admin', function () {

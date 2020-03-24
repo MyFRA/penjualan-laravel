@@ -14,7 +14,7 @@
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
+Route::get('/invite/{token}', 'InviteController@index');
 Route::get('/', function () {
     return view('welcomes');
 });
@@ -36,6 +36,18 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['checkPerusahaanIdForAll'])->group(function() {
         // Dashboard Route
         Route::resource('/admin/dashboard', 'Admin\DashboardController');
+
+        // Anggota Route
+        Route::resource('/admin/anggota', 'Admin\AnggotaController');
+
+        // Barang Route
+        Route::resource('/admin/produk', 'Admin\BarangController');
+
+        // Alamat Route
+        Route::resource('/admin/alamat', 'Admin\AlamatController');
+
+        // Profil Route
+        Route::resource('/admin/profil', 'Admin\ProfilController');
     });
 
 });

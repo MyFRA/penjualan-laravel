@@ -8,6 +8,9 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+
+use App\Models\Perusahaan;
 
 class RegisterController extends Controller
 {
@@ -48,11 +51,22 @@ class RegisterController extends Controller
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
-    {
+    {   
+        $dataPerusahaan = Perusahaan::get();
+        foreach ($dataPerusahaan as $dataPer1) {
+            $idPerusahaan[] = $dataPer1->id;
+        } 
+        if ( !in_array($data['token'], $idPerusahaan) ) {
+            dd('okok');
+        } else {
+            dd('akak');
+        }
+
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'token' => ['nullable', Rule::in($this->allslots)]
         ]);
     }
 

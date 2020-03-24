@@ -19,6 +19,7 @@ class DashboardController extends Controller {
     {
         $data = [
             'title' => 'Dashboard',
+            'nav'   => 'dashboard',
             'user'  => Auth::user(),
         ];
 

@@ -199,4 +199,15 @@
 
 })();
 </script>
+@if(session('perusahaanSukses'))
+<script>
+  Swal.fire({
+    position: 'top-end',
+    icon: 'success',
+    title: 'Perusahaan Berhasil Dibuat',
+    showConfirmButton: false,
+    timer: 1500
+  })
+</script>
+@endif
 @endsection

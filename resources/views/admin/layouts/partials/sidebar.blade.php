@@ -1,11 +1,12 @@
 <!-- Navigation -->
         <ul class="navbar-nav">
-          <li class="nav-item  class=" active>
-          <a class=" nav-link active " href=" ./index.html"> <i class="ni ni-tv-2 text-primary"></i> Dashboard
+          <li class="nav-item {{ ($nav == 'dashboard') ? 'active' : '' }}">
+            <a class=" nav-link " href="{{ url('/admin/dashboard') }}"> 
+              <i class="ni ni-tv-2 text-primary"></i> Dashboard
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link " href="./examples/icons.html">
+          <li class="nav-item {{ ($nav == 'anggota') ? 'active' : '' }}">
+            <a class="nav-link " href="{{ url('/admin/anggota') }}">
               <i class="ni ni-planet text-blue"></i> List Anggota
             </a>
           </li>
@@ -24,13 +25,23 @@
               <i class="ni ni-bullet-list-67 text-red"></i> Tambahkan Penjualan
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="./examples/login.html">
-              <i class="ni ni-key-25 text-info"></i> List Barang
+          <li class="nav-item {{ ($nav == 'alamat') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ url('/admin/alamat') }}">
+              <i class="ni ni-key-25 text-info"></i> Alamat
+            </a>
+          </li>
+          <li class="nav-item {{ ($nav == 'profil') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ url('/admin/profil') }}">
+              <i class="ni ni-key-25 text-info"></i> Profil
+            </a>
+          </li>
+          <li class="nav-item {{ ($nav == 'anggota') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ url('/admin/produk') }}">
+              <i class="ni ni-key-25 text-info"></i> Produk
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./examples/login.html">
+            <a class="nav-link" href="{{ url('/admin/logout') }}">
               <i class="ni ni-key-25 text-info"></i> Logout
             </a>
           </li>

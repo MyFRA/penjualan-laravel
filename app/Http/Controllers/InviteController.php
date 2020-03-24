@@ -1,36 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
-
 use App\Models\Perusahaan;
-use App\User;
 
-class PerusahaanController extends Controller
+class InviteController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('checkPerusahaanId');         
-    }
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($token)
     {
-        $data = array(
-            'title' => 'Perusahaan',
-            'nav'   => 'perusahaan',
-            'user'  => Auth::user(),
-        );
-
-        return view('admin/pages/perusahaan/index', $data);
+        $cekToken = Perusahaan::where('token', $token)->count();
+        if($cekToken < 1) return view('404');
+        return view('registerAnggota', ['token' => $token]);
     }
 
     /**
@@ -51,31 +37,7 @@ class PerusahaanController extends Controller
      */
     public function store(Request $request)
     {
-       $validator = Validator::make($request->all(), [
-            'nama' => 'required',
-       ]);
-
-       if ($validator->fails()) {
-           return back()
-                    ->withErrors($validator)
-                    ->withInput();
-       } else {
-            $token = uniqid();
-            Perusahaan::create(
-                [
-                    'nama'  => $request['nama'],
-                    'token' => $token,
-                ]);
-
-            $id_perusahaan = Perusahaan::where('token', $token)->get();
-            $id_perusahaan = $id_perusahaan[0]->id;
-
-            $data = User::where('id', Auth::user()->id);
-            $data->update([
-                'perusahaan_id' => $id_perusahaan,
-            ]);
-            return redirect('/admin/dashboard')->with('perusahaanSukses', $request->nama);
-       }
+        //
     }
 
     /**

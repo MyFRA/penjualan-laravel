@@ -5,18 +5,10 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
+use App\Models\Barang;
 
-use App\Models\Perusahaan;
-use App\User;
-
-class PerusahaanController extends Controller
+class BarangController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('checkPerusahaanId');         
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -25,12 +17,12 @@ class PerusahaanController extends Controller
     public function index()
     {
         $data = array(
-            'title' => 'Perusahaan',
-            'nav'   => 'perusahaan',
+            'title' => 'Produk',
+            'nav'   => 'produk',
             'user'  => Auth::user(),
         );
 
-        return view('admin/pages/perusahaan/index', $data);
+        return view('admin.pages.barang.index', $data);
     }
 
     /**
@@ -51,31 +43,7 @@ class PerusahaanController extends Controller
      */
     public function store(Request $request)
     {
-       $validator = Validator::make($request->all(), [
-            'nama' => 'required',
-       ]);
-
-       if ($validator->fails()) {
-           return back()
-                    ->withErrors($validator)
-                    ->withInput();
-       } else {
-            $token = uniqid();
-            Perusahaan::create(
-                [
-                    'nama'  => $request['nama'],
-                    'token' => $token,
-                ]);
-
-            $id_perusahaan = Perusahaan::where('token', $token)->get();
-            $id_perusahaan = $id_perusahaan[0]->id;
-
-            $data = User::where('id', Auth::user()->id);
-            $data->update([
-                'perusahaan_id' => $id_perusahaan,
-            ]);
-            return redirect('/admin/dashboard')->with('perusahaanSukses', $request->nama);
-       }
+        Barang::create($request->all());
     }
 
     /**

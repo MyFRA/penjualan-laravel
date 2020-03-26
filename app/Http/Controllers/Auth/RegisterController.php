@@ -33,6 +33,7 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+    protected $token      = '';
 
     /**
      * Create a new controller instance.
@@ -54,20 +55,18 @@ class RegisterController extends Controller
     {   
         $dataPerusahaan = Perusahaan::get();
         foreach ($dataPerusahaan as $dataPer1) {
-            $idPerusahaan[] = $dataPer1->id;
+            $tokenPerusahaan[] = $dataPer1->token;
         } 
-        if ( !in_array($data['token'], $idPerusahaan) ) {
-            dd('okok');
-        } else {
-            dd('akak');
-        }
+        $this->allslots = $tokenPerusahaan;
 
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'token' => ['nullable', Rule::in($this->allslots)]
-        ]);
+            'token'    => [Rule::in($this->allslots), 'nullable'],
+        ]); 
+
+        
     }
 
     /**
@@ -78,10 +77,17 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $perusahaanRow = Perusahaan::where('token', $data['token'])->count();
+
+        ( $perusahaanRow < 1 ) ? $perusahaan_id = NULL : $perusahaan_id = Perusahaan::where('token', $data['token'])->get()[0]->id;
+        ( is_null($data['token']) ) ? $role = 'pemilik' : $role = 'anggota';
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'perusahaan_id' => $perusahaan_id,
+            'role'          => $role,
         ]);
     }
 }

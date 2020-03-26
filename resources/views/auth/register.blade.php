@@ -13,9 +13,6 @@
 =========================================================
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
-@isset ($message)
-    dd($message)
-@endisset
 <!DOCTYPE html>
 <html lang="en">
 
@@ -106,6 +103,7 @@
               </div>
               <form role="form" method="post" action="{{ route('register') }}">
                 @csrf
+                <input type="hidden" name="token">
                 <div class="form-group">
                   <div class="input-group input-group-alternative mb-3">
                     <div class="input-group-prepend">

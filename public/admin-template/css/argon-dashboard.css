@@ -14803,6 +14803,23 @@ a.text-lighter:focus {
   border-radius: 50%;
 }
 
+.avatars {
+  color: #fff;
+  /*background-color: #adb5bd;*/
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  border-radius: 50%;
+  height: 48px;
+  width: 48px;
+}
+
+.avatars img {
+  width: 100%;
+  border-radius: 10px;
+}
+
 .avatar+.avatar-content {
   display: inline-block;
   margin-left: .75rem;

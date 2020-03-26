@@ -13,35 +13,35 @@
 		</div>
 		<div class="col-md-6">
 			<div class="form-group focused d-inline">
-            	<input style="color: black;" type="text" id="input-username" class="form-control form-control-alternative" disabled="" value="{{ url('/invite') }}/{{ $token }}">
+            	<input style="color: black;" type="text" id="myInput" class="form-control form-control-alternative" readonly="" value="{{ url('/invite') }}/{{ $token }}">
           	</div>
 		</div>
 		<div class="col-md-2">
-			<button type="button" class="btn btn-success"><i class=""></i>Salin</button>
+			<button id="copyButton" type="button" onclick="myFunction()"  class="btn btn-success"><i class=""></i>Salin</button>
 		</div>
 	</div>
 @endsection
-
 @section('content')
 	<div class="row">
-        <div class="col-xl-9 mb-5 mb-xl-0">
+        <div class="col-lg-9 col-xl-9 mb-5 mb-xl-0">
           <div class="card shadow">
             <div class="card-header border-0">
-              <h3 class="mb-0">25 Anggota</h3>
+              <h3 class="mb-0">{{ $anggota->count() }} Anggota</h3>
             </div>
             <div class="table-responsive">
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                   <tr>
-                    <th scope="col">Profil</th>
+                    <th style="width: 20%" scope="col">Profil</th>
                     <th scope="col">Nama</th>
-                    <th scope="col">Role</th>
-                    <th scope="col">Aksi</th>
+                    <th style="width: 20%" scope="col">Role</th>
+                    <th style="width: 20%" class="text-center" scope="col">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
+                    @foreach ($anggota as $anggotaPer1)
                   <tr>
-                    <th scope="row">
+                      <th scope="row">
                       <div class="media align-items-center">
                         <a href="#" class="avatar rounded-circle mr-3">
                           <img src="../assets/img/theme/bootstrap.jpg">
@@ -49,142 +49,25 @@
                       </div>
                     </th>
                     <td>
-                      Diah Ayu Nigsih Kusuma Ningrum
+                      {{ $anggotaPer1->name }}
                     </td>
                     <td>
-                      <span class="badge badge-dot mr-4">
-                        <i class="bg-warning"></i> pending
-                      </span>
+                      {{ $anggotaPer1->role }}
                     </td>
-                    <td class="text-right">
+                    <td class="text-center">
                       <div class="dropdown">
                         <a class="btn btn-sm btn-icon-only text-light " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           <i class="fas fa-ellipsis-v"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                          <a class="dropdown-item" href="#">Lihat Orang</a>
+                          <a class="dropdown-item" href="#">Lihat {{ $anggotaPer1->name }}</a>
                           <a class="dropdown-item" href="#">Jadikan Administrator</a>
-                          <a class="dropdown-item" href="#">Keluarkan Orang Diah Ayu Nigsih Kusuma Ningrum</a>
+                          <a class="dropdown-item" href="#">Keluarkan {{ $anggotaPer1->name }}</a>
                         </div>
                       </div>
                     </td>
                   </tr>
-                  <tr>
-                    <th scope="row">
-                      <div class="media align-items-center">
-                        <a href="#" class="avatar rounded-circle mr-3">
-                          <img src="../assets/img/theme/angular.jpg">
-                        </a>
-                      </div>
-                    </th>
-                    <td>
-                      Adi
-                    </td>
-                    <td>
-                      <span class="badge badge-dot">
-                        <i class="bg-success"></i> completed
-                      </span>
-                    </td>
-                    <td class="text-right">
-                      <div class="dropdown">
-                        <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="fas fa-ellipsis-v"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                          <a class="dropdown-item" href="#">Action</a>
-                          <a class="dropdown-item" href="#">Another action</a>
-                          <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      <div class="media align-items-center">
-                        <a href="#" class="avatar rounded-circle mr-3">
-                          <img src="../assets/img/theme/sketch.jpg">
-                        </a>
-                      </div>
-                    </th>
-                    <td>
-                      $3,150 USD
-                    </td>
-                    <td>
-                      <span class="badge badge-dot mr-4">
-                        <i class="bg-danger"></i> delayed
-                      </span>
-                    </td>
-                    <td class="text-right">
-                      <div class="dropdown">
-                        <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="fas fa-ellipsis-v"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                          <a class="dropdown-item" href="#">Action</a>
-                          <a class="dropdown-item" href="#">Another action</a>
-                          <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      <div class="media align-items-center">
-                        <a href="#" class="avatar rounded-circle mr-3">
-                          <img src="../assets/img/theme/react.jpg">
-                        </a>
-                      </div>
-                    </th>
-                    <td>
-                      $4,400 USD
-                    </td>
-                    <td>
-                      <span class="badge badge-dot">
-                        <i class="bg-info"></i> on schedule
-                      </span>
-                    </td>
-                    <td class="text-right">
-                      <div class="dropdown">
-                        <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="fas fa-ellipsis-v"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                          <a class="dropdown-item" href="#">Action</a>
-                          <a class="dropdown-item" href="#">Another action</a>
-                          <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      <div class="media align-items-center">
-                        <a href="#" class="avatar rounded-circle mr-3">
-                          <img src="../assets/img/theme/vue.jpg">
-                        </a>
-                      </div>
-                    </th>
-                    <td>
-                      $2,200 USD
-                    </td>
-                    <td>
-                      <span class="badge badge-dot mr-4">
-                        <i class="bg-success"></i> completed
-                      </span>
-                    </td>
-                    <td class="text-right">
-                      <div class="dropdown">
-                        <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="fas fa-ellipsis-v"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                          <a class="dropdown-item" href="#">Action</a>
-                          <a class="dropdown-item" href="#">Another action</a>
-                          <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
+                  @endforeach
                 </tbody>
               </table>
             </div>
@@ -216,4 +99,19 @@
           </div>
         </div>
       </div>
+@endsection
+
+@section('script')
+  <script>
+    function myFunction() {
+      var copyText = document.getElementById('myInput');
+      copyText.select();
+
+      var copyButton = document.getElementById('copyButton');
+      copyButton.innerHTML = 'Tersalin';
+
+      document.execCommand("copy");
+
+    }
+  </script>
 @endsection

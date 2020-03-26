@@ -46,6 +46,7 @@ Route::middleware(['auth'])->group(function () {
         // Alamat Route
         Route::resource('/admin/alamat', 'Admin\AlamatController');
 
+        Route::resource('/entah/profil', 'Admin\AlamatController');
         // Profil Route
         Route::resource('/admin/profil', 'Admin\ProfilController');
     });

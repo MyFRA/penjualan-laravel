@@ -32,6 +32,6 @@
   <!-- CSS Files -->
   <link href="{{ asset('/admin-template/css/argon-dashboard.css?v=1.1.0') }}" rel="stylesheet" />
   <link rel="stylesheet" type="text/css" href="{{ asset('/admin-template/sweetalert2/dist/sweetalert2.css') }}">
-
+  @yield('stylesheet')
 
 </head>

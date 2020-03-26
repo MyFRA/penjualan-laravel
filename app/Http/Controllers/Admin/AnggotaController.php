@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Perusahaan;
+use App\User;
 
 class AnggotaController extends Controller
 {
@@ -22,6 +23,7 @@ class AnggotaController extends Controller
             'nav'   => 'anggota',
             'user'  => Auth::user(),
             'token' => Perusahaan::find(Auth::user()->perusahaan_id)->token,
+            'anggota' => User::where('perusahaan_id', Auth::user()->perusahaan_id)->get()
         );
 
         return view('admin.pages.anggota.index', $data);

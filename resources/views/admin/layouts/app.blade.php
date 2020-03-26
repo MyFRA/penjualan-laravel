@@ -9,6 +9,7 @@
 			@yield('content')
 		</div>
 	</div>
+	@yield('alert')
 	@include('admin.layouts.partials.footer')
 </body>
 

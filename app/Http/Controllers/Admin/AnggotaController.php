@@ -58,7 +58,14 @@ class AnggotaController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = array(
+            'user'  => Auth::user(),
+            'title' => 'Profil Anggota',
+            'nav'   => 'anggota',
+            'item' => User::find(decrypt($id)),
+        );
+
+        return view('admin.pages.anggota.show', $data);
     }
 
     /**

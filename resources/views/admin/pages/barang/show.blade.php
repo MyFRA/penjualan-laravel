@@ -24,7 +24,7 @@
         				<tr>
         					<th><h3>Harga</h3></th>
         					<th><h3>:</h3></th>
-        					<th><h3>{{ $item->harga }}</h3></th>
+        					<th><h3>Rp. {{ $item->harga }}</h3></th>
         				</tr>
         				<tr>
         					<th><h3>Terjual</h3></th>

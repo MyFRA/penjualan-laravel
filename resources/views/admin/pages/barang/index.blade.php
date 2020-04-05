@@ -4,7 +4,7 @@
 
   <div class="row">
     <div class="col-lg-7 col-md-9">
-        <h1 class="display-2 text-white">Monokrom Store</h1>
+        <h1 class="display-2 text-white">{{ $namaPerusahaan }}</h1>
         <p class="text-white mt-0 mb-2">Belanja Gampang Penak Banget Lah Tur Ora Pusing</p>
       </div>
       <div class="offset-md-1 col-md-2  offset-lg-1 col-lg-3">

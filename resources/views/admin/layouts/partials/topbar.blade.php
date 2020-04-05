@@ -24,9 +24,12 @@
         <li class="nav-item dropdown">
           <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <div class="media align-items-center">
-              <span class="avatar avatar-sm rounded-circle">
-                <img alt="Image placeholder" src="./assets/img/theme/team-1-800x800.jpg
-">
+              <span style="color: #525F7F" class="avatars avatar-sm ">
+                @if (is_null( $user->gambar ))
+                    <i class="fas fa-user fa-2x"></i>
+                  @else 
+                    <img alt="" src="{{ asset('/storage/profil_user') }}/{{ $user->gambar }}">
+                  @endif
               </span>
             </div>
           </a>

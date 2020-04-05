@@ -14817,7 +14817,7 @@ a.text-lighter:focus {
 
 .avatars img {
   width: 100%;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .avatar+.avatar-content {
@@ -14831,7 +14831,7 @@ a.text-lighter:focus {
   font-size: 0.875rem;
 }
 
-.avatar-sm {
+.avatars-sm {
   width: 36px;
   height: 36px;
   font-size: 0.875rem;

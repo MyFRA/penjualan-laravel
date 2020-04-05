@@ -43,9 +43,15 @@
                   <tr>
                       <th scope="row">
                       <div class="media align-items-center">
-                        <a href="#" class="avatar rounded-circle mr-3">
-                          <img src="../assets/img/theme/bootstrap.jpg">
-                        </a>
+                        @if ( is_null($anggotaPer1->gambar) )
+                          <div class="card text-center ml-1">
+                              <i class="fas fa-user fa-3x"></i>
+                          </div>
+                        @else
+                          <a href="#" class="avatars rounded-circle mr-3">
+                            <img class="img-thumbnail img-fluid" src="{{ asset('/storage/profil_user') }}/{{ $anggotaPer1->gambar }}" alt="Card image cap">
+                          </a>
+                        @endif
                       </div>
                     </th>
                     <td>
@@ -60,7 +66,7 @@
                           <i class="fas fa-ellipsis-v"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                          <a class="dropdown-item" href="#">Lihat {{ $anggotaPer1->name }}</a>
+                          <a class="dropdown-item" href="{{ url('/admin/anggota/'.encrypt($anggotaPer1->id)) }}">Lihat {{ $anggotaPer1->name }}</a>
                           <a class="dropdown-item" href="#">Jadikan Administrator</a>
                           <a class="dropdown-item" href="#">Keluarkan {{ $anggotaPer1->name }}</a>
                         </div>

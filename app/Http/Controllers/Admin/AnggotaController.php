@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\Perusahaan;
 use App\User;
+use DB;
 
 class AnggotaController extends Controller
 {
@@ -22,8 +24,18 @@ class AnggotaController extends Controller
             'title' => 'Anggota',
             'nav'   => 'anggota',
             'user'  => Auth::user(),
-            'token' => Perusahaan::find(Auth::user()->perusahaan_id)->token,
-            'anggota' => User::where('perusahaan_id', Auth::user()->perusahaan_id)->get()
+            'anggota' => User::select('gambar', 'name', 'role', 'id',
+                            DB::raw(
+                                '( CASE 
+                                        WHEN role = "pemilik" THEN 1 
+                                        WHEN role = "administrator" THEN 2 
+                                        WHEN role = "anggota" THEN 3 
+                                    END
+                                )'
+                            )
+                        )->where('perusahaan_id', Auth::user()->perusahaan_id)
+                        ->orderBy('role')->get(),
+            'perusahaan' => Perusahaan::select('nama', 'slogan', 'token')->where('id', Auth::user()->perusahaan_id)->get()[0]
         );
 
         return view('admin.pages.anggota.index', $data);
@@ -62,7 +74,7 @@ class AnggotaController extends Controller
             'user'  => Auth::user(),
             'title' => 'Profil Anggota',
             'nav'   => 'anggota',
-            'item' => User::find(decrypt($id)),
+            'item' => User::select('users.*', 'perusahaan.nama as namaPerusahaan')->from('users')->join('perusahaan', 'users.perusahaan_id', '=', 'perusahaan.id')->where('users.id', decrypt($id))->get()[0]
         );
 
         return view('admin.pages.anggota.show', $data);
@@ -86,9 +98,20 @@ class AnggotaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, $role)
     {
-        //
+        $anggota = User::find(decrypt($id));
+
+        if( Auth::user()->role == 'anggota' || Auth::user()->role == $anggota->role ) {
+            return back()->with('gagal', 'anda tidak memiliki akses, untuk melakukan update!');
+        } else {
+            if ( Auth::user()->role == 'administrator' && $anggota->role == 'pemilik' ) return back()->with('gagal', 'anda tidak memiliki akses, untuk melakukan update!');
+
+            $anggota->update([
+                'role' => decrypt($role)
+            ]);
+            return back()->with('success', "$anggota->name sekarang menjadi " . decrypt($role));
+        }
     }
 
     /**
@@ -99,6 +122,19 @@ class AnggotaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $anggota = User::find(decrypt($id));
+
+        if( Auth::user()->role == 'anggota' || Auth::user()->role == $anggota->role ) {
+            return back()->with('gagal', 'anda tidak memiliki akses, untuk melakukan update!');
+        } else {
+            if ( Auth::user()->role == 'administrator' && $anggota->role == 'pemilik' ) return back()->with('gagal', 'anda tidak memiliki akses, untuk melakukan update!');
+
+            if (Storage::disk('local')->exists('public/profil_user/' . $anggota->gambar)) {
+                Storage::disk('local')->delete('public/profil_user/' . $anggota->gambar);
+            }
+
+            User::destroy(decrypt($id));
+            return back()->with('success', "$anggota->name telah dikeluarkan");
+        }
     }
 }

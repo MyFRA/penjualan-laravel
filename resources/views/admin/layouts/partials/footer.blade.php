@@ -14,4 +14,7 @@
         application: "argon-dashboard-free"
       });
   </script>
+  <script src="{{ asset('/admin-template/js/app.js') }}">
+    
+  </script>
   @yield('script')

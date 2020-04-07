@@ -29,7 +29,7 @@
                   <i class="ni location_pin mr-2"></i>{{ $item->alamat }} {{', ' .  strtoupper($item->negara) }}
                 </div>
                 <div class="h5 mt-4">
-                  <i class="ni business_briefcase-24 mr-2"></i>Monokrom - {{ $item->role }}
+                  <i class="ni business_briefcase-24 mr-2"></i>{{ $item->namaPerusahaan }} - {{ $item->role }}
                 </div>
                 <div>
                   <i class="ni education_hat mr-2"></i>{{ $item->instansiasi }}

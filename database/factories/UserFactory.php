@@ -3,6 +3,8 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use App\User;
+use App\Models\Perusahaan;
+use Faker\Factory as FakerFactory;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
@@ -18,11 +20,23 @@ use Illuminate\Support\Str;
 */
 
 $factory->define(User::class, function (Faker $faker) {
+	// $faker = Faker::create('id_ID');
+	$perusahaanObj = Perusahaan::get();
+    foreach ($perusahaanObj as $usaha) {
+       $perusahaan[] = $usaha->id;
+    };
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
-        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        'password' => bcrypt('maturnuwun'), // password
         'remember_token' => Str::random(10),
+    	'umur' => $faker->numberBetween(1, 60),
+    	'alamat' => $faker->state,
+        'negara' => $faker->country,
+        'instansiasi' => $faker->company,
+        'perusahaan_id' => $faker->randomElement($perusahaan),
+        'role' => $faker->randomElement(['author','pembimbing','pemilik','administrator','anggota']),
+        'deskripsi' => $faker->text(200),
     ];
 });

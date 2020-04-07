@@ -31,6 +31,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/admin/logout', function () {
         Auth::logout();
+        return redirect('login');
     });
 
     Route::middleware(['checkPerusahaanIdForAll'])->group(function() {
@@ -39,6 +40,7 @@ Route::middleware(['auth'])->group(function () {
 
         // Anggota Route
         Route::resource('/admin/anggota', 'Admin\AnggotaController');
+        Route::put('/admin/anggota/{id}/{role}', 'Admin\AnggotaController@update');
 
         // Barang Route
         Route::resource('/admin/produk', 'Admin\BarangController');

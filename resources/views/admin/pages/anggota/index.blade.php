@@ -1,28 +1,32 @@
 @extends('admin.layouts.app')
 
 @section('rekap')
+
 	<div class="row">
 		<div class="col-lg-7 col-md-10">
-	    	<h1 class="display-2 text-white">Monokrom Store</h1>
-	    	<p class="text-white mt-0 mb-5">Belanja Gampang Penak Banget Lah Tur Ora Pusing</p>
+	    	<h1 class="display-2 text-white">{{ $perusahaan->nama }}</h1>
+	    	<p class="text-white mt-0 mb-5">{{ $perusahaan->slogan }}</p>
 	  	</div>
 	</div>
-	<div class="row">
-		<div class="col-md-12">
-	    	<h3 class="mb-2" style="color: white">Undang via tautan</h3>
-		</div>
-		<div class="col-md-6">
-			<div class="form-group focused d-inline">
-            	<input style="color: black;" type="text" id="myInput" class="form-control form-control-alternative" readonly="" value="{{ url('/invite') }}/{{ $token }}">
-          	</div>
-		</div>
-		<div class="col-md-2">
-			<button id="copyButton" type="button" onclick="myFunction()"  class="btn btn-success"><i class=""></i>Salin</button>
-		</div>
-	</div>
+  @if ($user->role == 'pemilik' || $user->role == 'administrator')
+    <div class="row">
+      <div class="col-md-12">
+        <h3 class="mb-2" style="color: white">Undang via tautan</h3>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group focused d-inline">
+            <input style="color: black;" type="text" id="myInput" class="form-control form-control-alternative" readonly="" value="{{ url('/invite') }}/{{ $perusahaan->token }}">
+        </div>
+      </div>
+      <div class="col-md-2">
+        <button id="copyButton" type="button" onclick="myFunction()"  class="btn btn-success"><i class=""></i>Salin</button>
+      </div>
+    </div>
+  @endif
+
 @endsection
 @section('content')
-	<div class="row">
+	    <div class="row">
         <div class="col-lg-9 col-xl-9 mb-5 mb-xl-0">
           <div class="card shadow">
             <div class="card-header border-0">
@@ -39,40 +43,49 @@
                   </tr>
                 </thead>
                 <tbody>
-                    @foreach ($anggota as $anggotaPer1)
-                  <tr>
+                  @foreach ($anggota as $anggotaPer1)
+                    <tr @if($user->id == $anggotaPer1->id) style="background: #eee" @endif>
                       <th scope="row">
-                      <div class="media align-items-center">
-                        @if ( is_null($anggotaPer1->gambar) )
-                          <div class="card text-center ml-1">
+                        <div class="media align-items-center">
+                          @if ( is_null($anggotaPer1->gambar) )
+                            <div class="card text-center ml-1">
                               <i class="fas fa-user fa-3x"></i>
-                          </div>
-                        @else
-                          <a href="#" class="avatars rounded-circle mr-3">
-                            <img class="img-thumbnail img-fluid" src="{{ asset('/storage/profil_user') }}/{{ $anggotaPer1->gambar }}" alt="Card image cap">
-                          </a>
-                        @endif
-                      </div>
-                    </th>
-                    <td>
-                      {{ $anggotaPer1->name }}
-                    </td>
-                    <td>
-                      {{ $anggotaPer1->role }}
-                    </td>
-                    <td class="text-center">
-                      <div class="dropdown">
-                        <a class="btn btn-sm btn-icon-only text-light " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="fas fa-ellipsis-v"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                          <a class="dropdown-item" href="{{ url('/admin/anggota/'.encrypt($anggotaPer1->id)) }}">Lihat {{ $anggotaPer1->name }}</a>
-                          <a class="dropdown-item" href="#">Jadikan Administrator</a>
-                          <a class="dropdown-item" href="#">Keluarkan {{ $anggotaPer1->name }}</a>
+                            </div>
+                          @else
+                            <a href="#" class="avatars rounded-circle mr-3">
+                              <img class="img-thumbnail img-fluid" src="{{ asset('/storage/profil_user') }}/{{ $anggotaPer1->gambar }}" alt="Card image cap">
+                            </a>
+                          @endif
                         </div>
-                      </div>
-                    </td>
-                  </tr>
+                      </th>
+                      <td>
+                        {{ $anggotaPer1->name }}
+                      </td>
+                      <td>
+                        {{ $anggotaPer1->role }}
+                      </td>
+                      <td class="text-center">
+                        <div class="dropdown">
+                          <a class="btn btn-sm btn-icon-only text-light " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v"></i>
+                          </a>
+                          <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                            <a class="dropdown-item" href="{{ url('/admin/anggota/'.encrypt($anggotaPer1->id)) }}">Lihat {{ $anggotaPer1->name }}</a>
+                            @if ( $user->role == 'pemilik' && $user->role != $anggotaPer1->role )
+                              @if ( $anggotaPer1->role == 'administrator' )
+                                <a class="dropdown-item" href="#" onclick='updateRole("{{ $anggotaPer1->name }}", "Turunkan", "anggota", "{{ url('/admin/anggota/' . encrypt($anggotaPer1->id) . '/' . encrypt('anggota')) }}")'>Turunkan menjadi anggota</a>
+                              @else
+                                <a href="#" class="dropdown-item" onclick='updateRole("{{ $anggotaPer1->name }}", "Promosikan", "administrator", "{{ url('/admin/anggota/' . encrypt($anggotaPer1->id) . '/' . encrypt('administrator')) }}")'>Promosikan menjadi administrator</a>
+                              @endif
+                              <a class="dropdown-item" href="#" onclick='onDestroy("{{ url('/admin/anggota/' . encrypt($anggotaPer1->id)) }}", "Apakah anda yakin, akan mengeluarkan {{ $anggotaPer1->name }}?")'>Keluarkan {{ $anggotaPer1->name }}</a>
+                            @elseif( $user->role == 'administrator' && $anggotaPer1->role == 'anggota' )
+                              <a href="#" class="dropdown-item" onclick='updateRole("{{ $anggotaPer1->name }}", "Promosikan", "administrator", "{{ url('/admin/anggota/' . encrypt($anggotaPer1->id) . '/' . encrypt('administrator')) }}")'>Promosikan menjadi administrator</a>
+                              <a class="dropdown-item" href="#" onclick='onDestroy("{{ url('/admin/anggota/' . encrypt($anggotaPer1->id)) }}", "Apakah anda yakin, akan mengeluarkan " . $anggotaPer1->name . "?")'>Keluarkan {{ $anggotaPer1->name }}</a>
+                            @endif
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
                   @endforeach
                 </tbody>
               </table>
@@ -107,7 +120,23 @@
       </div>
 @endsection
 
+@section('stylesheet')
+  <link rel="stylesheet" href="{{ url('/admin-template/sweetalert2/dist/sweetalert2.css') }}">
+@endsection
+
 @section('script')
+  <form id="updateRole_form" action="" method="POST" style="display: none;">
+    @csrf
+    @method('PUT')
+  </form>
+  <form id="destroy_form" action="" method="POST" style="display: none;">
+    @csrf
+    @method('delete')
+  </form>
+
+  <script src="{{ asset('/admin-template/sweetalert2/dist/sweetalert2.all.js') }}"></script>
+
+
   <script>
     function myFunction() {
       var copyText = document.getElementById('myInput');
@@ -120,4 +149,21 @@
 
     }
   </script>
+  @if (Session::get('gagal'))
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: '{{ Session::get('gagal') }}',
+      })
+    </script>
+    @elseif(Session::get('success'))
+    <script>
+      Swal.fire(
+        'Berhasil!',
+        '{{ Session::get('success') }}',
+        'success'
+      )
+    </script>
+  @endif
 @endsection

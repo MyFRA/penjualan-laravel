@@ -20,8 +20,8 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->integer('umur')->nullable();
             $table->string('alamat')->nullable();
-            $table->string('negara', 30)->nullable();
-            $table->string('instansiasi', 30)->nullable();
+            $table->string('negara', 50)->nullable();
+            $table->string('instansiasi', 50)->nullable();
             $table->string('no_hp', 20)->nullable();
             $table->unsignedBigInteger('perusahaan_id')->nullable();
             $table->enum('role', ['author','pembimbing','pemilik', 'administrator', 'anggota'])->default('pemilik');

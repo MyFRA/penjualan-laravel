@@ -99,14 +99,14 @@ class ProfilController extends Controller
             'email'         => 'required|max:50',
             'umur'          => 'numeric',
             'alamat'        => 'max:255',
-            'negara'        => 'max:30',
+            'negara'        => 'max:50',
             'instansiasi'   => 'max:50',
         ], [
             'name.required' => 'nama tidak boleh kosong',
             'name.max'      => 'nama maksimal 50 karakter',
             'umur.numeric'  => 'umur hanya boleh angka',
             'alamat.max'    => 'alamat maksimal 255 karakter',
-            'negara.max'    => 'negara maksimal 30 karakter',
+            'negara.max'    => 'negara maksimal 50 karakter',
             'instansiasi.max'   => 'instansiasi maksimal 50 karakter',
         ]);
 

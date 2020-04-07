@@ -37,7 +37,7 @@
               </div>
               <a href="./examples/profile.html" class="dropdown-item">
                 <i class="ni ni-single-02"></i>
-                <span>My profile</span>
+                <span>Profil</span>
               </a>
               <a href="./examples/profile.html" class="dropdown-item">
                 <i class="ni ni-settings-gear-65"></i>
@@ -52,7 +52,7 @@
                 <span>Support</span>
               </a>
               <div class="dropdown-divider"></div>
-              <a href="#!" class="dropdown-item">
+              <a href="{{ url('/logout') }}" class="dropdown-item">
                 <i class="ni ni-user-run"></i>
                 <span>Logout</span>
               </a>

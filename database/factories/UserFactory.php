@@ -26,17 +26,17 @@ $factory->define(User::class, function (Faker $faker) {
        $perusahaan[] = $usaha->id;
     };
     return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
+        'name'          => $faker->name,
+        'email'         => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
-        'password' => bcrypt('maturnuwun'), // password
-        'remember_token' => Str::random(10),
-    	'umur' => $faker->numberBetween(1, 60),
-    	'alamat' => $faker->state,
-        'negara' => $faker->country,
-        'instansiasi' => $faker->company,
+        'password'      => bcrypt('maturnuwun'), // password
+        'remember_token'=> Str::random(10),
+    	'umur'          => $faker->numberBetween(16, 60),
+    	'alamat'        => $faker->state,
+        'negara'        => $faker->country,
+        'instansiasi'   => $faker->company,
         'perusahaan_id' => $faker->randomElement($perusahaan),
-        'role' => $faker->randomElement(['author','pembimbing','pemilik','administrator','anggota']),
-        'deskripsi' => $faker->text(200),
+        'role'          => $faker->randomElement(['author','pembimbing','pemilik','administrator','anggota']),
+        'deskripsi'     => $faker->text(200),
     ];
 });

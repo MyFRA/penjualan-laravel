@@ -9,9 +9,6 @@
 @endsection
 @section('content')
 	<div class="row">
-		
-	</div>
-	<div class="row">
 		<div class="col-md-5">
   			<img class="img-thumbnail img-fluid" src="{{ asset('/storage') }}/{{ $namaPerusahaan }}/{{ $item->gambar }}" alt="Card image cap">
 		</div>

@@ -31,7 +31,23 @@
   <link href="{{ asset('/admin-template/js/plugins/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="{{ asset('/admin-template/css/argon-dashboard.css?v=1.1.0') }}" rel="stylesheet" />
-  <link rel="stylesheet" type="text/css" href="{{ asset('/admin-template/sweetalert2/dist/sweetalert2.css') }}">
+  @if (session('success'))
+    <script>
+        Swal.fire(
+          'Berhasil',
+          '{{ session('success') }}',
+          'success'
+        )
+    </script>
+@elseif(session('gagal'))
+    <script>
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: '{{ session('gagal') }}',
+        })
+    </script>
+@endif
   @yield('stylesheet')
 
 </head>

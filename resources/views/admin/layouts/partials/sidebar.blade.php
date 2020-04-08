@@ -35,6 +35,11 @@
               <i class="ni ni-key-25 text-info"></i> Produk
             </a>
           </li>
+          <li class="nav-item {{ ($nav == 'profil-perusahaan') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ url('/admin/profil-perusahaan') }}">
+              <i class="fas fa-building"></i> Profil Perusahaan
+            </a>
+          </li>
           <li class="nav-item {{ ($nav == 'bantuan') ? 'active' : '' }}">
             <a class="nav-link" href="{{ url('/admin/bantuan') }}">
               <i class="ni ni-key-25 text-info"></i> Bantuan
@@ -43,11 +48,6 @@
           <li class="nav-item {{ ($nav == 'tentang') ? 'active' : '' }}">
             <a class="nav-link" href="{{ url('/admin/tentang') }}">
               <i class="fas fa-info-circle text-info"></i> Tentang
-            </a>
-          </li>
-          <li class="nav-item {{ ($nav == 'pengaturan') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ url('/admin/pengaturan') }}">
-              <i class="ni ni-settings"></i> Pengaturan
             </a>
           </li>
           <li class="nav-item">

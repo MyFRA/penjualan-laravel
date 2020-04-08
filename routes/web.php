@@ -50,6 +50,11 @@ Route::middleware(['auth'])->group(function () {
 
         // Profil Route
         Route::resource('/admin/profil', 'Admin\ProfilController');
+
+        // Profil Perusahaan Route
+        Route::resource('/admin/profil-perusahaan', 'Admin\ProfilPerusahaanController');
+
+
     });
 
 });

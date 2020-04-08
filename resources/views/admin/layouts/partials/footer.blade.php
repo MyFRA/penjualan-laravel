@@ -6,7 +6,9 @@
   <!--   Argon JS   -->
   <script src="{{ asset('/admin-template/js/argon-dashboard.min.js?v=1.1.0') }}"></script>
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
-  <script src="{{ asset('/admin-template/sweetalert2/dist/sweetalert2.all.js') }}"></script>
+  <script>
+    
+  </script>
   <script>
     window.TrackJS &&
       TrackJS.install({

@@ -1,0 +1,463 @@
+
+.service-card{
+  background: #f8f8ff;
+  @include transition;
+
+  &:hover{
+    background: $white;
+  }
+}
+.service-card-img{
+  padding-top: 60px;
+  padding-bottom: 40px;
+  max-height: 260px;
+
+  @media(max-width: 600px){
+    padding-top: 20px;
+    padding: 10px;
+  }
+}
+.service-card-body{
+  padding: 10px 30px 40px 30px;
+
+  h3{
+    margin-bottom: 8px;
+
+    @media(min-width: 768px){
+      margin-bottom: 15px;
+    }
+  }
+}
+
+
+
+
+.about-content{
+
+  h2{
+    margin-bottom: 15px;
+
+    @media(min-width: 768px){
+      margin-bottom: 25px;
+    }
+  }
+
+  p{
+    margin-bottom: 20px;
+
+    @media(min-width: 768px){
+      margin-bottom: 40px;
+    }
+  }
+}
+.about-img{
+  
+  @media(min-width: 1200px){
+    position: relative;
+    left: -100px;
+  }
+}
+
+
+
+
+.tour-card{
+  position: relative;
+  margin-bottom: 30px;
+
+  .tour-card-overlay{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: $white;
+    padding: 40px;
+    opacity: 0;
+    z-index: -1;
+    transform: translateY(40px);
+    @include transition;
+
+    h4{
+      margin-bottom: 0;
+    }
+
+    small{
+      font-size: 15px;
+      color: #555555;
+      margin-bottom: 10px;
+    }
+
+    p{
+      font-size: 16px;
+    }
+  }
+
+
+  &:hover{
+
+    .tour-card-overlay{
+      transform: translateY(0);
+      width: 100%;
+      opacity: 1;
+      z-index: 1;
+
+      @media(min-width: 1200px){
+        width: 74%;
+      }
+    }
+  }
+}
+
+.tour-content{
+  padding: 8px 20px 25px 15px;
+
+  h2{
+    margin-bottom: 15px;
+  }
+}
+
+
+
+
+
+
+
+.magic-ball{
+  position: relative;
+
+  &::before{
+    content: "";
+    display: block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 8px solid $primary-color;
+    opacity: .5;
+    position: absolute;
+    bottom: -68px;
+    left: -15px;
+
+    @media(min-width: 768px){
+      width: 70px;
+      height: 70px;
+      left: -35px;
+      border: 15px solid $primary-color;
+    }
+  }
+
+  &::after{
+    content: "";
+    display: block;
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background-color: rgb(235, 235, 255);
+    opacity: .5;
+    position: absolute;
+    bottom: -263px;
+    left: 70px;
+
+    @media(min-width: 768px){
+      width: 98px;
+      height: 98px;
+      left: 165px;
+    }
+  }
+}
+
+.magic-ball-about{
+
+  &::before{
+    top: 265px;
+    left: -32px;
+  }
+
+  &::after{
+    top: 65px;
+    left: 135px;
+  }
+}
+
+.magic-ball-testimonial{
+
+  &::before{
+    top: 265px;
+    left: -32px;
+  }
+
+  &::after{
+    top: 130px;
+    left: 135px;
+  }
+}
+
+.magic-ball-banner{
+
+  &::before{
+    top: 80px;
+    left: 130px;
+  }
+
+  &::after{
+    width: 70px;
+    height: 70px;
+    top: 270px;
+    left: 170px;
+  }
+}
+
+.magic-ball-sm{
+
+
+  &::before{
+    width: 60px;
+    height: 60px;
+    top: 280px;
+    left: -25px;
+  }
+
+  &::after{
+    width: 60px;
+    height: 60px;
+    top: 160px;
+    left: 80px;
+  }
+}
+
+
+
+
+
+
+
+/* Testimonial section start
+============================================================================================ */
+.testimonial{
+  max-width: 950px;
+  margin-right: auto;
+  margin-left: auto;
+
+  &__item{
+    background: $white;
+    border-radius: 20px;
+    padding: 30px 15px;
+
+    @media(min-width: 768px){
+      padding: 30px 50px;
+    }
+  }
+
+  &__img{
+    max-width: 132px;
+  }
+
+  &__content{
+    @media(min-width: 1200px){
+      padding-left: 22px;
+    }
+
+    h3{
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 0;
+    }
+
+    p{
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+  }
+
+  &__i{
+    font-size: 15px !important;
+    font-style: italic;
+    margin-bottom: 0 !important;
+  }
+
+  &__icon{
+    font-size: 173px;
+    color: rgba(119, 119, 119, 0.1);
+    position: absolute;
+    top : 50%;
+    transform: translateY(-50%);
+    right: 40px;
+  }
+
+  .owl-dots{
+    margin-top: 30px !important;
+
+    @media(min-width: 600px){
+      margin-top: 60px !important;
+    }
+
+    .owl-dot{
+
+      span{
+        width: 20px;
+        height: 4px;
+        background: rgb(205, 202, 213);
+        border-radius: 5px;
+        margin: 5px 8px;
+      }
+
+      &.active span{
+        height: 6px;
+        background: rgb(96, 89, 246);
+      }
+    }
+  }
+}
+/* Testimonial section end
+============================================================================================ */
+
+
+.card-blog{
+  background: $white;
+
+  .card-blog-body{
+    padding: 20px 10px;
+    @include transition;
+
+    @media(min-width: 1200px){
+      padding: 25px 25px 30px 40px;
+    }
+
+    h4{
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+
+    p{
+      margin-bottom: 0;
+    }
+  }
+  
+  &:hover{
+
+    .card-blog-body{
+      box-shadow: 0px 10px 20px 0px rgba(14, 30, 112, 0.1); 
+    }
+  }
+}
+
+.card-blog-info{
+  margin-bottom: 15px;
+
+  li{
+    display: inline-block;
+    font-size: 14px;
+    color: #888888;
+    margin-right: 25px;
+
+    &:last-child{
+      margin-right: 0;
+    }
+
+    a{
+      color: #888888;
+    }
+
+    i,span{
+      margin-right: 5px;
+    }
+  }
+}
+
+
+
+.search-wrapper{
+  background: #f8f8ff;
+  padding: 30px 10px;
+  text-align: center;
+
+  @media(min-width: 600px){
+    padding: 60px;
+  }
+  
+  h3{
+    font-size: 25px;
+    margin-bottom: 25px;
+
+    @media(min-width: 600px){
+      margin-bottom: 50px;
+    }
+  }
+}
+
+.search-form{
+
+  .form-group{
+    margin-bottom: 20px;
+  }
+
+  .nice-select{
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    border: 0;
+    border-radius: 0;
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #999999;
+
+    &:after{
+      right: 25px;
+    }
+  }
+
+  .form-control{
+    font-size: 14px;
+    color: #999999;
+    padding-left: 20px;
+    border: 0;
+    height: 50px;
+    border-radius: 0;
+
+    &::placeholder{
+      color: #999999;
+    }
+
+    &:focus{
+      outline: 0;
+      box-shadow: none;
+    }
+  }
+
+  .input-group-append{
+    
+    .input-group-text{
+      border: 0;
+      padding-right: 20px;
+      border-radius: 0;
+      background: $white;
+    }
+
+    i,span{
+      font-size: 14px;
+      color: #999999;
+    }
+  }
+
+  &::placeholder{
+    color: #999999;
+  }
+}
+
+.search-content{
+
+  h2{
+    margin-bottom: 10px;
+
+    @media(min-width: 768px){
+      margin-bottom: 20px;
+    }
+  }
+
+  p{
+    margin-bottom: 25px;
+
+    @media(min-width: 768px){
+      margin-bottom: 40px;
+    }
+  }
+}

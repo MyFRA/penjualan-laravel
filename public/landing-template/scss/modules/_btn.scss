@@ -1,0 +1,37 @@
+/*=================== custom button rule start ====================*/
+.button{
+  display: inline-block;
+  background-color: $primary-color;
+  color: $white;
+  border-radius: 30px;
+  padding: 8px 25px;
+  text-transform: capitalize;
+  @include transition;
+
+  @media(min-width: 600px){
+    padding: 12px 45px;
+  }
+
+  &:hover{
+    background-color: #201aa3;
+    color: $white;
+  }
+}
+
+.button-hero{
+  font-weight: 500;
+}
+
+.button-contactForm{
+  border-radius: 5px;
+}
+
+.button-shadow{
+  box-shadow: 0px 10px 20px 0px rgba(181, 176, 255, 0.2); 
+}
+
+button.button{
+  border: 0;
+}
+
+/*=================== custom button rule end ====================*/

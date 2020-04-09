@@ -20,7 +20,7 @@ class AlamatController extends Controller
         //     'user'  => Auth::user(),
         // );
 
-        // return view('admin.pages.barang.index', $data);
+        return view('admin.pages.alamat.index');
     }
 
     /**

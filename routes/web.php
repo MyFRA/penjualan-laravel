@@ -16,7 +16,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/invite/{token}', 'InviteController@index');
 Route::get('/', function () {
-    return view('welcomes');
+    return view('landing');
 });
 
 // Halaman Admin
@@ -54,6 +54,11 @@ Route::middleware(['auth'])->group(function () {
         // Profil Perusahaan Route
         Route::resource('/admin/profil-perusahaan', 'Admin\ProfilPerusahaanController');
 
+        // Penjualan Perusahaan Route
+        Route::resource('/admin/penjualan', 'Admin\PenjualanController');
+
+        // Penjualan Perusahaan Route
+        Route::resource('/admin/traffics', 'Admin\TrafficsController');
 
     });
 

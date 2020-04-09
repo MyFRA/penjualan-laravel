@@ -15,14 +15,14 @@
               <i class="fas fa-trophy text-yellow"></i> Top Kontribusi
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link " href="./examples/profile.html">
-              <i class="ni ni-cart text-yellow"></i> List Penjualan
+          <li class="nav-item {{ ($nav == 'penjualan ') ? 'active' : '' }}">
+            <a class="nav-link " href="{{ url('/admin/penjualan') }}">
+              <i class="ni ni-cart text-yellow"></i> Penjualan
             </a>
           </li>
-          <li class="nav-item {{ ($nav == 'alamat') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ url('/admin/alamat') }}">
-              <i class="fas fa-map text-info"></i> Alamat
+          <li class="nav-item {{ ($nav == 'traffics') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ url('/admin/traffics') }}">
+              <i class="fas fa-map text-info"></i> Traffics
             </a>
           </li>
           <li class="nav-item {{ ($nav == 'profil') ? 'active' : '' }}">

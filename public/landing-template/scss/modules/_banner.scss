@@ -1,0 +1,136 @@
+/* banner section start
+	============================================================================================ */
+.hero-banner{
+  padding-top: 120px;
+
+  @media(min-width: 992px){
+    padding-top: 160px;
+  }
+
+  h1{
+    text-transform: uppercase;
+    color: $primary-color;
+    margin-bottom: 15px;
+
+    @media(max-width: 1200px){
+      font-size: 40px;
+    }
+
+    @media(max-width: 991px){
+      font-size: 30px;
+    }
+  }
+}
+
+.hero-banner-sm{
+  background: url(../img/banner/banner.png) left center no-repeat;
+  background-size: cover;
+  padding-top: 140px;
+  padding-bottom: 90px;
+
+  @media(min-width: 992px){
+    padding-top: 240px;
+    padding-bottom: 140px;
+  }
+
+  h1{
+    text-transform: uppercase;
+    color: $primary-color;
+
+    @media(max-width: 991px){
+      font-size: 38px;
+    }
+
+    @media(max-width: 768px){
+      font-size: 28px;
+    }
+  }
+
+  p{
+    margin-bottom: 0;
+  }
+}
+
+.hero-banner-sm-content{
+  max-width: 400px;
+}
+
+
+
+.bg-shape{
+  position: relative;
+
+  &::before{
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 595px;
+    height: 660px;
+    background: url(../img/home/bg-shape-left.png) left center no-repeat;
+    background-size: cover;
+    z-index: -1;
+
+    @media(max-width: 620px){
+      display: none;
+    }
+  }
+
+
+  &::after{
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 755px;
+    height: 860px;
+    background: url(../img/home/bg-shape-right.png) left center no-repeat;
+    background-size: cover;
+    z-index: -1;
+
+    @media(max-width: 620px){
+      display: none;
+    }
+  }
+}
+
+
+/* banner section end
+  ============================================================================================ */
+
+
+
+/* breadcrumb section start
+  ============================================================================================ */
+  .banner-breadcrumb{
+    display: inline-block;
+    
+    .breadcrumb{
+      background: transparent;
+      padding: 0;
+  
+      &-item{
+        padding: .1rem;
+  
+        a{
+          text-transform: capitalize;
+          color: #fff;
+        }
+  
+        &+.breadcrumb-item::before{
+          color: #fff;
+          padding-left: .2rem;
+          padding-right: .4rem;
+          // content: "-";
+        }
+  
+        &.active{
+          color: #fff;
+        }
+      }
+    }
+  }
+/* breadcrumb section end
+  ============================================================================================ */

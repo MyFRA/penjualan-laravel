@@ -26,7 +26,7 @@ class PenjualanController extends Controller
             'nav'       => 'penjualan',
             'title'     => 'Penjualan',
             'user'      => Auth::user(),
-            'penjualan' => Penjualan::select('penjualan.id', 'penjualan.jumlah', 'penjualan.created_at', 'penjualan.status', 'barang.nama as nama_barang', 'barang.gambar', 'users.name as nama_penjual', 'traffics.nama as nama_traffic')
+            'penjualan' => Penjualan::select('penjualan.id', 'penjualan.jumlah', 'penjualan.created_at', 'penjualan.status', 'barang.nama as nama_barang', 'barang.gambar', 'barang.satuan', 'users.name as nama_penjual', 'traffics.nama as nama_traffic')
                         ->join('barang', 'penjualan.barang_id', '=', 'barang.id')
                         ->join('users', 'penjualan.users_id', '=', 'users.id')
                         ->join('traffics', 'penjualan.traffics_id', '=', 'traffics.id')
@@ -78,7 +78,22 @@ class PenjualanController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = array(
+            'nav' => 'penjualan',
+            'title' => 'Detail Penjualan',
+            'user' => Auth::user(),
+            'item' => Penjualan::select('penjualan.*', 'users.name as nama_penjual', 'perusahaan.nama as nama_perusahaan', 'barang.nama as nama_barang', 'barang.satuan', 'traffics.nama as nama_traffic')
+                                ->join('users', 'users.id', '=', 'penjualan.users_id')
+                                ->join('barang', 'barang.id', '=', 'penjualan.barang_id')
+                                ->join('traffics', 'traffics.id', '=', 'penjualan.traffics_id')
+                                ->join('perusahaan', 'perusahaan.id', '=', 'penjualan.perusahaan_id')
+                                ->where('penjualan.perusahaan_id', Auth::user()->perusahaan_id)
+                                ->where('penjualan.id', decrypt($id))
+                                ->get()[0]
+
+        );
+
+        return view('admin.pages.penjualan.show', $data);
     }
 
     /**
@@ -112,6 +127,8 @@ class PenjualanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Penjualan::destroy(decrypt($id));
+
+        return back()->with('success', 'Penjualan telah dihapus');
     }
 }

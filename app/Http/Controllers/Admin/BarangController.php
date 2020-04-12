@@ -174,7 +174,7 @@ class BarangController extends Controller
             $namaPerusahaan = Perusahaan::find(Auth::user()->perusahaan_id)->nama;
             $namaGambar     = (explode('.', $file->getClientOriginalName()))[0] . '-' . time() . '.' . $file->getClientOriginalExtension();
             
-            Storage::putFileAs('public/' . $namaPerusahaan . '/', $file, $namaGambar);
+            Storage::putFileAs('public/foto_produk/', $file, $namaGambar);
             Barang::create([
                 'nama' => $request->nama,
                 'harga_asli' => $request->harga_asli,

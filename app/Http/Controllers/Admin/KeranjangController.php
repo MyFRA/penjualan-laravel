@@ -113,7 +113,7 @@ class KeranjangController extends Controller
                 'keuntungan'    => ( $barang->harga_jual - $barang->harga_asli ) * $request->jumlah,
             ]);
 
-            return back()->with('success', 'Penjualan telah masuk keranjang');
+            return back()->with('success', 'Produk telah masuk keranjang');
         }
     }
 
@@ -156,7 +156,7 @@ class KeranjangController extends Controller
                 'keuntungan' => ( $barang->harga_jual - $barang->harga_asli ) * $request->jumlah,
             ]);
 
-            return back()->with('success', 'Penjualan telah masuk keranjang');
+            return back()->with('success', 'Produk telah masuk keranjang');
         }
     }
 

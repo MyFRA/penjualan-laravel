@@ -3,14 +3,14 @@
 
 	<div class="row">
 		<div class="col-lg-7 col-md-10">
-	    	<h1 class="display-2 text-white">Penjualan</h1>
+	    	<h1 class="display-2 text-white"><i class="fas fa-poll-h"></i> &nbsp;Penjualan</h1>
 	    	<p class="text-white mt-0 mb-5">Menampilkan Rincian Data Penjualan</p>
 	  	</div>
 	</div>
 
 	<div class="row">
 		<div class="col">
-			<a href="{{ url('/admin/keranjang/create') }}" class="btn btn-success">Tambah Penjualan</a>
+			<a href="{{ url('/admin/keranjang/create') }}" class="btn btn-success"><i class="fas fa-plus"></i> &nbsp;Tambah Penjualan</a>
 		</div>
 	</div>
 @endsection
@@ -41,7 +41,7 @@
                     <th scope="row">
                       <div class="media align-items-center">
                         <a href="#" class="avatars rounded-circle mr-3">
-                          <img alt="Image placeholder" src="{{ asset('/storage') }}">
+                          <img alt="Image placeholder" src="{{ asset('/storage/foto_produk/'. $sell->gambar) }}">
                         </a>
                         <div class="media-body">
                           <span class="mb-0 text-sm">{{ $sell->nama_barang }}</span>
@@ -53,14 +53,14 @@
                     </td>
                     <td>
                       <span class="badge badge-dot mr-4">
-                        <i class="bg-warning"></i> {{ $sell->status }}
+                        <i class=" {{ $sell->status == 'Offline' ? 'bg-warning' : 'bg-success' }} "></i> {{ $sell->status }}
                       </span>
                     </td>
                     <td>
                       {{ $sell->nama_traffic }}
                     </td>
                     <td>
-                      {{ $sell->jumlah }}
+                      {{ $sell->jumlah }} {{ $sell->satuan }}
                     </td>
                     <td>
                       {{ $sell->created_at->format('l, d, M, Y') }}
@@ -71,9 +71,9 @@
                           <i class="fas fa-ellipsis-v"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                          <a class="dropdown-item" href="#">Action</a>
-                          <a class="dropdown-item" href="#">Another action</a>
-                          <a class="dropdown-item" href="#">Something else here</a>
+                          <a class="btn  btn-success ml-3 mt-2" href="{{ url('/admin/penjualan') }}/{{encrypt($sell->id)}}"><i class="fas fa-eye"></i> Detail</a><br>
+                          <button name="submit" onclick="onDestroy('{{ url('/admin/penjualan/' . encrypt($sell->id)) }}', 'Yakin penjualan akan dihapus?')" type="submit" class="btn  ml-3 mt-2 btn-danger "><i class="fa fa-trash"></i> Hapus</button>
+                            {{-- <button type="submit" class="btn btn-danger ml-3 mt-2" ><i class="fas fa-trash"></i> Hapus</button> --}}
                         </div>
                       </div>
                     </td>
@@ -112,3 +112,9 @@
       </div>
 @endsection
 
+@section('script')
+  <form class="d-inline" id="destroy_form" action="" method="post">
+    @method('DELETE')
+    @csrf
+  </form>
+@endsection

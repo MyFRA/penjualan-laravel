@@ -1,86 +1,84 @@
 @extends('admin.layouts.app')
 @section('rekap')
           <div class="row">
-            <div class="col-xl-3 col-lg-6">
+            <div class="col-lg-6">
               <div class="card card-stats mb-4 mb-xl-0">
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
                       <h5 class="card-title text-uppercase text-muted mb-0">Anggota</h5>
-                      <span class="h2 font-weight-bold mb-0">25</span>
+                      <span class="h2 font-weight-bold mb-0">{{ number_format($jmlAnggota, 0, '.', '.') }}</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
-                        <i class="fas fa-chart-bar"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-success mr-2"><i class="fa fa-arrow-up"></i></span>
-                    <span class="text-nowrap"></span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Penjualan</h5>
-                      <span class="h2 font-weight-bold mb-0">563</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
                         <i class="fas fa-users"></i>
                       </div>
                     </div>
                   </div>
                   <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> 1.10%</span>
-                    <span class="text-nowrap">Since yesterday</span>
+                    <span class="text-nowrap"></span>
                   </p>
                 </div>
               </div>
             </div>
-            <div class="col-xl-3 col-lg-6">
+            <div class="col-lg-6">
+              <div class="card card-stats mb-4 mb-xl-0">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Penjualan</h5>
+                      <span class="h2 font-weight-bold mb-0">{{ number_format($jmlPenjualan, 0, '.', '.') }}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
+                        <i class="ni ni-cart "></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-muted text-sm">
+                    <span class="text-nowrap"></span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-lg-6">
               <div class="card card-stats mb-4 mb-xl-0">
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
                       <h5 class="card-title text-uppercase text-muted mb-0">Keuntungan</h5>
-                      <span class="h2 font-weight-bold mb-0">Rp. 659000</span>
+                      <span class="h2 font-weight-bold mb-0">Rp. {{ number_format($jmlKeuntungan, 0, '.', '.') }}</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-info text-white rounded-circle shadow">
-                        <i class="fas fa-percent"></i>
+                        <i class="fas fa-money-bill-wave"></i>
                       </div>
                     </div>
                   </div>
                   <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 12%</span>
-                    <span class="text-nowrap">Since last month</span>
+                    <span class="text-nowrap"></span>
                   </p>
                 </div>
               </div>
             </div>
-            <div class="col-xl-3 col-lg-6">
+            <div class="col-lg-6">
               <div class="card card-stats mb-4 mb-xl-0">
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Tabungan</h5>
-                      <span class="h2 font-weight-bold mb-0">Rp. 50000</span>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Kas</h5>
+                      <span class="h2 font-weight-bold mb-0">Rp. {{ number_format($jmlKas, 0, '.', '.') }}</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
-                        <i class="fas fa-chart-pie"></i>
+                        <i class="fas fa-wallet"></i>
                       </div>
                     </div>
                   </div>
                   <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 3.48%</span>
-                    <span class="text-nowrap">Since last week</span>
+                    <span class="text-nowrap"></span>
                   </p>
                 </div>
               </div>
@@ -94,8 +92,8 @@
             <div class="card-header bg-transparent">
               <div class="row align-items-center">
                 <div class="col">
-                  <h6 class="text-uppercase text-muted ls-1 mb-1">Performance</h6>
-                  <h2 class="mb-0">Total orders</h2>
+                  <h6 class="text-uppercase text-muted ls-1 mb-1">Performa</h6>
+                  <h2 class="mb-0">Graffik Penjualan</h2>
                 </div>
               </div>
             </div>
@@ -120,8 +118,192 @@
               </div>
             </div>
           </div>
+    </div>
+    <div class="col-xl-4 ">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <div class="row align-items-center">
+            <div class="col">
+              <h3 class="mb-0">Top Traffic</h3>
+            </div>
+          </div>
         </div>
+        <div class="table-responsive">
+          <!-- Projects table -->
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th style="width: 10%" scope="col">No</th>
+                <th scope="col">Nama</th>
+                <th scope="col">Jml</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach ($topTraffics as $traffic)
+                <tr>
+                  <th>{{ $loop->iteration }}</th>
+                  <th scope="row">
+                    {{ $traffic->nama }}
+                  </th>
+                  <th>
+                    {{ $traffic->jumlahOrder }}
+                  </th>
+                </tr>
+              @endforeach
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
 	</div>
+  <div class="row mt-3">
+    <div class="col-xl-6 ">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <div class="row align-items-center">
+            <div class="col">
+              <h3 class="mb-0">Top Provinsi</h3>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <!-- Projects table -->
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th style="width: 10%" scope="col">No</th>
+                <th scope="col">Provinsi</th>
+                <th scope="col">Jml</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach ($topProvinsi as $provinsi)
+                <tr>
+                  <th>1</th>
+                  <th scope="row">
+                    {{ $provinsi->provinsi }}
+                  </th>
+                  <th>
+                    {{ $provinsi->jumlahProvinsi }}
+                  </th>
+                </tr>
+              @endforeach
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-6 ">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <div class="row align-items-center">
+            <div class="col">
+              <h3 class="mb-0">Top Kabupaten</h3>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <!-- Projects table -->
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th style="width: 10%" scope="col">No</th>
+                <th scope="col">Kabupaten</th>
+                <th scope="col">Jml</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach ($topKabupaten as $kabupaten)
+                <tr>
+                  <th>1</th>
+                  <th scope="row">
+                    {{ $kabupaten->kabupaten }}
+                  </th>
+                  <th>
+                    {{ $kabupaten->jumlahKabupaten }}
+                  </th>
+                </tr>
+              @endforeach
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-xl-6 ">
+          <div class="card shadow">
+            <div class="card-header border-0">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h3 class="mb-0">Top Kecamatan</h3>
+                </div>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <!-- Projects table -->
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th style="width: 10%" scope="col">No</th>
+                    <th scope="col">Kecamatan</th>
+                    <th scope="col">Jml</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach ($topKecamatan as $kecamatan)
+                    <tr>
+                      <th>1</th>
+                      <th scope="row">
+                        {{ $kecamatan->kecamatan }}
+                      </th>
+                      <th>
+                        {{ $kecamatan->jumlahKecamatan }}
+                      </th>
+                    </tr>
+                  @endforeach
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-6 ">
+          <div class="card shadow">
+            <div class="card-header border-0">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h3 class="mb-0">Top Kelurahan</h3>
+                </div>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <!-- Projects table -->
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th style="width: 10%" scope="col">No</th>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Jml</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach ($topKelurahan as $kelurahan)
+                    <tr>
+                      <th>1</th>
+                      <th scope="row">
+                        {{ $kelurahan->kelurahan }}
+                      </th>
+                      <th>
+                        {{ $kelurahan->jumlahKelurahan }}
+                      </th>
+                    </tr>
+                  @endforeach
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+  </div>
 @endsection
 
 @section('script')
@@ -179,10 +361,19 @@
         }
       },
       data: {
-        labels: ['hh7vh7', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        labels: [
+          <?php foreach ($penjualanPerBulan as $perBulan) {?>
+            <?= " '" . $perBulan->month . "'," ?>
+          <?php } ?>
+          
+        ],
         datasets: [{
           label: 'Sales',
-          data: [25, 20, 30, 22, 17, 29]
+          data: [
+            <?php foreach ($penjualanPerBulan as $jmlPerBulan) {?>
+              <?= $jmlPerBulan->jumlah . ", " ?>
+            <?php } ?>
+          ]
         }]
       }
     });

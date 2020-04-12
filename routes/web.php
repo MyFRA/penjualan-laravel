@@ -36,7 +36,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::middleware(['checkPerusahaanIdForAll'])->group(function() {
         // Dashboard Route
-        Route::resource('/admin/dashboard', 'Admin\DashboardController');
+        Route::resource('/admin/dashboard', 'Admin\DashboardController')->only(['index']);
 
         // Anggota Route
         Route::resource('/admin/anggota', 'Admin\AnggotaController');

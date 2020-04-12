@@ -40,6 +40,11 @@
               <i class="fas fa-building"></i> Profil Perusahaan
             </a>
           </li>
+          <li class="nav-item {{ ($nav == 'kas') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ url('/admin/kas') }}">
+              <i class="fas fa-wallet text-info"></i> Kas
+            </a>
+          </li>
           <li class="nav-item {{ ($nav == 'bantuan') ? 'active' : '' }}">
             <a class="nav-link" href="{{ url('/admin/bantuan') }}">
               <i class="ni ni-key-25 text-info"></i> Bantuan

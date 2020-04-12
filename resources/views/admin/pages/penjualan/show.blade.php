@@ -4,8 +4,8 @@
 
 	<div class="row">
 		<div class="col-lg-7 col-md-10">
-	    	<h1 class="display-2 text-white"><i class="far fa-handshake"></i> Checkout</h1>
-	    	<p class="text-white mt-0 mb-5">Halaman untuk checkout penjualan ( Pembayaran )</p>
+	    	<h1 class="display-2 text-white"><i class="far fa-handshake"></i> Detail Penjualan</h1>
+	    	<p class="text-white mt-0 mb-5">Halaman detail penjualan ( Pembayaran )</p>
 	  	</div>
 	</div>
 
@@ -50,6 +50,11 @@
 							<td class="pr-2"><h5 class="card-title text-uppercase ">Nama Produk</h5></td>
 							<td><h5 class="card-title text-uppercase ">:</h5></td>
 							<td class="pl-2"><h5 class="card-title text-uppercase text-muted">{{ $item->nama_barang }}</h5></td>
+						</tr>
+						<tr>
+							<td class="pr-2"><h5 class="card-title text-uppercase ">Harga Jual</h5></td>
+							<td><h5 class="card-title text-uppercase ">:</h5></td>
+							<td class="pl-2"><h5 class="card-title text-uppercase text-muted">Rp {{ number_format($item->harga_jual, 0, '.', '.') }}</h5></td>
 						</tr>
 						<tr>
 							<td class="pr-2"><h5 class="card-title text-uppercase ">Jumlah</h5></td>
@@ -104,8 +109,8 @@
             			<h1 class="ml-4 mt-3">RP {{ number_format($item->total_biaya, 0, '.', '.') }}</h1>
             			<hr>
                       	<h2 class="mt-4"><i class="fas fa-hand-holding-usd"></i> Total Keuntungan</h2>
-            			<h1 class="ml-4 mt-3 text-success"><i class="fas fa-plus"></i> RP {{ $item->keuntungan }}</h1>
-                      	<h2 class="mt-4"><i class="fas fa-piggy-bank"></i> Masuk Tabungan</h2>
+            			<h1 class="ml-4 mt-3 text-success"><i class="fas fa-plus"></i> RP {{ number_format($item->keuntungan, 0, '.', '.') }}</h1>
+                      	<h2 class="mt-4"><i class="fas fa-wallet"></i> Masuk Kas</h2>
             			<h1 class="ml-4 mt-3 text-success" ><i class="fas fa-plus"></i> RP {{ number_format($item->total_biaya, 0, '.', '.') }}</h1>
 						<a class="btn btn-dark float-right mt-3" href="{{ url('/admin/penjualan') }}">Kembali</a>
                     </div>

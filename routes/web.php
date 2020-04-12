@@ -67,6 +67,9 @@ Route::middleware(['auth'])->group(function () {
         // Checkout Controller 
         Route::resource('/admin/checkout', 'Admin\CheckoutController');
 
+        // Kas Controller
+        Route::resource('/admin/kas', 'Admin\KasController');
+
     });
 
 });

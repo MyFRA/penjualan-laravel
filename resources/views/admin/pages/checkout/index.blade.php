@@ -58,7 +58,12 @@
 								<td class="pl-2"><h5 class="card-title text-uppercase text-muted">{{ $cart->jumlah }} {{ $cart->satuan }}</h5></td>
 							</tr>
 							<tr>
-								<td class="pr-2"><h5 class="card-title text-uppercase ">Keuntungan /pcs</h5></td>
+								<td class="pr-2"><h5 class="card-title text-uppercase ">Harga Jual /{{ $cart->satuan }}</h5></td>
+								<td><h5 class="card-title text-uppercase ">:</h5></td>
+								<td class="pl-2"><h5 class="card-title text-uppercase text-muted">Rp {{ number_format($cart->harga_jual, 0, '.', '.') }}</h5></td>
+							</tr>
+							<tr>
+								<td class="pr-2"><h5 class="card-title text-uppercase ">Keuntungan /{{ $cart->satuan }}</h5></td>
 								<td><h5 class="card-title text-uppercase ">:</h5></td>
 								<td class="pl-2"><h3 class="card-title text-uppercase">Rp {{ number_format(($cart->harga_jual - $cart->harga_asli), 0, '.', '.') }}</h3></td>
 							</tr>

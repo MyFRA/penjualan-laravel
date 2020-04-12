@@ -10,7 +10,7 @@
 
 	<div class="row">
 		<div class="col">
-			<a href="{{ url('/admin/penjualan/create') }}" class="btn btn-success">Tambah Penjualan</a>
+			<a href="{{ url('/admin/keranjang/create') }}" class="btn btn-success">Tambah Penjualan</a>
 		</div>
 	</div>
 @endsection
@@ -28,39 +28,42 @@
                   <tr>
                     <th scope="col">Produk</th>
                     <th scope="col">Penjual</th>
+                    <th scope="col">Status</th>
                     <th scope="col">Traffic</th>
                     <th scope="col">Jml</th>
-                    <th scope="col">Keuntungan</th>
-                    <th scope="col">Status</th>
+                    <th scope="col">Tanggal</th>
                     <th scope="col">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  @foreach ($penjualan as $sell)
+                    <tr>
                     <th scope="row">
                       <div class="media align-items-center">
                         <a href="#" class="avatars rounded-circle mr-3">
-                          <img alt="Image placeholder" src="http://127.0.0.1:8000/storage/Perum Susanti Nasyidah edit/Hydrangeas-1586424512.jpg">
+                          <img alt="Image placeholder" src="{{ asset('/storage') }}">
                         </a>
                         <div class="media-body">
-                          <span class="mb-0 text-sm">Lily HomeCare Pewangi Pakaian</span>
+                          <span class="mb-0 text-sm">{{ $sell->nama_barang }}</span>
                         </div>
                       </div>
                     </th>
                     <td>
-                     lorem10
+                     {{ $sell->nama_penjual }}
                     </td>
-                    <td class="text-center">
-
-                    </td>
-                    <td>
-                      
-                    </td>
-                    <td></td>
                     <td>
                       <span class="badge badge-dot mr-4">
-                        <i class="bg-warning"></i> offline
+                        <i class="bg-warning"></i> {{ $sell->status }}
                       </span>
+                    </td>
+                    <td>
+                      {{ $sell->nama_traffic }}
+                    </td>
+                    <td>
+                      {{ $sell->jumlah }}
+                    </td>
+                    <td>
+                      {{ $sell->created_at->format('l, d, M, Y') }}
                     </td>
                     <td class="text-center">
                       <div class="dropdown">
@@ -75,6 +78,7 @@
                       </div>
                     </td>
                   </tr>
+                  @endforeach
                 </tbody>
               </table>
             </div>
@@ -107,3 +111,4 @@
         </div>
       </div>
 @endsection
+

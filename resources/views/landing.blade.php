@@ -111,7 +111,7 @@
             <div class="service-card-body">
               <h3>Tomy Wibowo</h3>
               <p>
-              	Seseorang yang sedang menyukai pemrograman, dan menginginkan adanya seseorang yang bisa menyemangat... ahh,sudahlah... <i class="fas fa-leaf"></i>
+                Baru aja bisa ngobrol, &nbsp;tapi dia malah ngilang lagi <i class="fas fa-sad"></i>
               </p>
             </div>
           </div>

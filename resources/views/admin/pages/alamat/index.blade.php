@@ -21,9 +21,9 @@
   <div class="col-sm-6">
    <div class="form-group">
      <label for="form_sex">Provinsi <small>*</small></label>
-        <select class="form-control m-b" name="provinsi" id="propinsi">
-         <option selected value="">-- Pilih Provinsi --</option>
-       </select>
+      <select class="form-control m-b" name="provinsi" id="propinsi">
+        <option selected value="">-- Pilih Provinsi --</option>
+     </select>
     </select>
    </div>
   </div>

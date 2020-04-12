@@ -146,9 +146,17 @@
 		    <input type="text" required="" class="form-control" id="nama" name="nama" placeholder="Masukan nama produk">
 		  </div>
 		  <div class="form-group">
-		    <label for="harga">Harga</label>
-		    <input type="number" required="" class="form-control" id="harga" name="harga" placeholder="Masukan harga produk">
+		    <label for="harga_asli">Harga Asli</label>
+		    <input type="number" required="" class="form-control" id="harga_asli" name="harga_asli" placeholder="Masukan harga asli produk">
 		  </div>
+      <div class="form-group">
+        <label for="harga_jual">Harga Jual</label>
+        <input type="number" required="" class="form-control" id="harga_jual" name="harga_jual" placeholder="Masukan harga jual produk">
+      </div>
+      <div class="form-group">
+        <label for="satuan">Satuan</label>
+        <input type="text" required="" class="form-control" id="satuan" name="satuan" placeholder="contoh: pcs, kg, butir, dll">
+      </div>
 		  <div class="form-group">
 		    <label for="gambar">Gambar</label>
 		    <input type="file" class="form-control-file" id="gambar" name="gambar">

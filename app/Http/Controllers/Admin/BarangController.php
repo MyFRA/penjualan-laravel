@@ -52,12 +52,18 @@ class BarangController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required|max:100',
-            'harga' => 'required|numeric',
+            'harga_asli' => 'required|numeric',
+            'harga_jual' => 'required|numeric',
+            'satuan'     => 'required|max:20'
         ], [
             "nama.required" => "Nama Produk Harus Diisi",
             "nama.max" => "Nama Produk Maks 100 Karakter",
-            "harga.required" => "Harga Produk Harus Diisi",
-            "harga.numeric" => "Harga Harus Angka"
+            "harga_asli.required" => "Harga asli Produk Harus Diisi",
+            "harga_asli.numeric" => "Harga asli Harus Angka",
+            "harga_jual.required" => "Harga jual Produk Harus Diisi",
+            "harga_jual.numeric" => "Harga jual Harus Angka",
+            'satuan.required'   => 'satuan tidak boleh kosong',
+            'satuan.max'        => 'satuan maksimal 20 karakter',
         ]);
 
         if ($validator->fails()) {
@@ -153,7 +159,9 @@ class BarangController extends Controller
         if(empty($request->file())) {
             Barang::create([
                 'nama' => $request->nama,
-                'harga' => $request->harga,
+                'harga_asli' => $request->harga_asli,
+                'harga_jual' => $request->harga_jual,
+                'satuan' => $request->satuan,
                 'deskripsi' => $request->deskripsi,
                 'perusahaan_id' => Auth::user()->perusahaan_id,
             ]);
@@ -169,7 +177,9 @@ class BarangController extends Controller
             Storage::putFileAs('public/' . $namaPerusahaan . '/', $file, $namaGambar);
             Barang::create([
                 'nama' => $request->nama,
-                'harga' => $request->harga,
+                'harga_asli' => $request->harga_asli,
+                'harga_jual' => $request->harga_jual,
+                'satuan' => $request->satuan,
                 'deskripsi' => $request->deskripsi,
                 'perusahaan_id' => Auth::user()->perusahaan_id,
                 'gambar' => $namaGambar

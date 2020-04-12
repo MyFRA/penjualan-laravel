@@ -60,6 +60,13 @@ Route::middleware(['auth'])->group(function () {
         // Penjualan Perusahaan Route
         Route::resource('/admin/traffics', 'Admin\TrafficsController');
 
+        // Keranjang Route
+        Route::resource('/admin/keranjang', 'Admin\KeranjangController');
+        Route::post('/admin/keranjang/add', 'Admin\KeranjangController@addStore');
+
+        // Checkout Controller 
+        Route::resource('/admin/checkout', 'Admin\CheckoutController');
+
     });
 
 });

@@ -36,9 +36,9 @@
                         <label class="form-control-label" for="name">Nama Lengkap</label>
                         <input id="name" name="name" class="form-control form-control-alternative" placeholder="Masukan nama kamu" @error('name') style="border: 1px solid red" @enderror value="{{ old('name') ? old('name') : $item->name }}" type="text">
 
-						@error('name')
-							<h5 class="text-danger ml-2 mt-1"> {{ $message }} </h5>
-						@enderror
+            						@error('name')
+            							<h5 class="text-danger ml-2 mt-1"> {{ $message }} </h5>
+            						@enderror
                       </div>
                     </div>
                   </div>

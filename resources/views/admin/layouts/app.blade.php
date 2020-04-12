@@ -7,9 +7,11 @@
 		@include('admin.layouts.partials.header')
 		<div class="container-fluid mt--7">
 			@yield('content')
+			<div style="padding-top: 200px">
+				
+			</div>
 		</div>
 	</div>
-	@yield('alert')
 	@include('admin.layouts.partials.footer')
 </body>
 

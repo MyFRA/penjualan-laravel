@@ -4,7 +4,7 @@
 
 	<div class="row">
 		<div class="col-lg-7 col-md-10">
-	    	<h1 class="display-2 text-white">Traffics</h1>
+	    	<h1 class="display-2 text-white"><i class="fas fa-map "></i> Traffics</h1>
 	  	</div>
 	</div>
 
@@ -12,8 +12,8 @@
 @endsection
 
 @section('content')
-	<div class="row">
-		<div class="col-xl-4">
+	    <div class="row mt-4">
+		    <div class="col-xl-4">
           <div class="card bg-secondary shadow">
             <div class="card-body">
               <form method="post" action="{{ url('/admin/traffics') }}">
@@ -24,7 +24,7 @@
                     <div class="col-md-12">
                       <div class="form-group focused">
                         <label class="form-control-label" for="nama" >Nama</label>
-                        <input type="text" id="nama" name="nama" class="form-control form-control-alternative" value="{{ old('nama') }}">
+                        <input type="text" id="nama" name="nama" required="" class="form-control form-control-alternative" value="{{ old('nama') }}">
                       </div>
                     </div>
                   </div>
@@ -35,7 +35,7 @@
             </div>
           </div>
         </div>
-		<div class="col-xl-4 offset-xl-1">
+		    <div class="col-xl-4 offset-xl-1">
           <div class="card shadow">
             <div class="card-header border-0">
               <div class="row align-items-center">
@@ -55,15 +55,15 @@
                 </thead>
                 <tbody>
                 	@foreach ($traffics as $traffic)
-                		 <tr>
-		                    <th scope="row">
-		                      {{ $traffic->nama }}
-		                    </th>
-		                    <td class="text-center text-white">
-		                      <a id="edit" data="{{ url('/admin/traffics/' . encrypt($traffic->id)) }}" href="{{ url('/admin/traffics/' . encrypt($traffic->id) . '/edit') }}" class="btn btn-sm btn-primary">Edit</a>
-		                      <button type="button" onclick="onDestroy('{{ url('/admin/traffics/' . encrypt($traffic->id)) }}', 'Traffic {{$traffic->nama}} akan dihapus?')" data="" class="btn btn-sm btn-danger">Hapus</a>
-		                    </td>
-		                  </tr>
+              		  <tr>
+	                    <th scope="row">
+	                      {{ $traffic->nama }}
+	                    </th>
+	                    <td class="text-center text-white">
+	                      <a id="edit" data="{{ url('/admin/traffics/' . encrypt($traffic->id)) }}" href="{{ url('/admin/traffics/' . encrypt($traffic->id) . '/edit') }}" class="btn btn-sm btn-primary">Edit</a>
+	                      <button type="button" onclick="onDestroy('{{ url('/admin/traffics/' . encrypt($traffic->id)) }}', 'Traffic {{$traffic->nama}} akan dihapus?')" data="" class="btn btn-sm btn-danger">Hapus</a>
+	                    </td>
+	                  </tr>
                 	@endforeach
                 </tbody>
               </table>
@@ -72,8 +72,7 @@
         </div>
       </div>
 
-      <button id="buttonModal" style="display: none" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-</button>
+      <button id="buttonModal" style="display: none" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"></button>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -95,23 +94,20 @@
             <div class="col-md-12">
               <div class="form-group focused">
                 <label class="form-control-label" for="nama" >Nama</label>
-                <input type="text" id="namaUpdate" name="nama" class="form-control form-control-alternative" value="{{ old('nama') }}">
+                <input type="text" id="namaUpdate" name="nama" required="" class="form-control form-control-alternative" value="{{ old('nama') }}">
               </div>
             </div>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
         <button type="submit" class="btn btn-primary">Update</button>
       </div>
-  </form>
+      </form>
     </div>
   </div>
 </div>
-@endsection
-@section('stylesheet')
-  <link rel="stylesheet" href="{{ url('/admin-template/sweetalert2/dist/sweetalert2.css') }}">
 @endsection
 
 @section('script')
@@ -119,8 +115,6 @@
     @csrf
     @method('delete')
   </form>
-
-  <script src="{{ asset('/admin-template/sweetalert2/dist/sweetalert2.all.js') }}"></script>
 
 	<script>
 		const tombolEdit  = document.querySelectorAll('a#edit');
@@ -151,17 +145,6 @@
 				xhr.send()
 			})
 		})
-
-	</script>
-		@if (Session::get('success'))
-		<script>
-			Swal.fire(
-			  'Berhasil!',
-			  '{{ Session::get('success') }}',
-			  'success'
-			)
-		</script>
-		@endif
-	
+  </script>
 
 @endsection

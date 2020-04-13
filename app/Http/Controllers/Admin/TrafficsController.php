@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 use App\Models\Traffic;
+use App\Models\Penjualan;
 
 class TrafficsController extends Controller
 {
@@ -28,15 +29,6 @@ class TrafficsController extends Controller
         return view('admin.pages.traffics.index', $data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -49,17 +41,17 @@ class TrafficsController extends Controller
         if (Auth::user()->role != 'pemilik' && Auth::user()->role != 'administrator') {
             return back()->with('gagal', 'Maaf, Anda tidak memiliki akses!');
         } else {
-
             $validator = Validator::make($request->all(), [
-            'nama' => 'required|max:50',
+                'nama' => 'required|max:50',
             ], [
-                "nama.max" => "Nama Produk Maks 50 Karakter",
+                "nama.required" => "Nama traffic tidak boleh kosong",
+                "nama.max" => "Nama traffic maksimal 50 Karakter",
             ]);
 
             if ($validator->fails()) {
                 return redirect()->back()
                             ->withErrors($validator)
-                            ->with('gagal', 'Produk Gagal Ditambahkan');
+                            ->with('gagal', $validator->customMessages);
             } else {
 
                 Traffic::create([
@@ -67,21 +59,11 @@ class TrafficsController extends Controller
                     'perusahaan_id' => Auth::user()->perusahaan_id
                 ]);
 
-                return back();
+                return back()->with('success', 'Traffic ' . $request->nama . ' telah ditambahkan');
             }
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -110,15 +92,15 @@ class TrafficsController extends Controller
             $validator = Validator::make($request->all(), [
             'nama' => 'required|max:50',
             ], [
-                "nama.max" => "Nama Produk Maks 50 Karakter",
+                "nama.required" => "Nama traffic tidak boleh kosong",
+                "nama.max" => "Nama traffic maksimal 50 Karakter",
             ]);
 
             if ($validator->fails()) {
                 return redirect()->back()
                             ->withErrors($validator)
-                            ->with('gagal', 'Produk Gagal Ditambahkan');
+                            ->with('gagal', $validator->customMessages );
             } else {
-
                 $data = Traffic::find(decrypt($id));
 
                 $data->update([
@@ -126,7 +108,7 @@ class TrafficsController extends Controller
                     'perusahaan_id' => Auth::user()->perusahaan_id,
                 ]);
 
-                return back();
+                return back()->with('success', 'Traffic telah diubah');
             }
         }
     }
@@ -139,10 +121,13 @@ class TrafficsController extends Controller
      */
     public function destroy($id)
     {
+        $decrypt = decrypt($id);   
+        if( Penjualan::where('traffics_id', $decrypt)->count() > 0 ) return back()->with('gagal', 'Traffic tidak dapat dihapus!');
+
         if (Auth::user()->role != 'pemilik' && Auth::user()->role != 'administrator') {
             return back()->with('gagal', 'Maaf, Anda tidak memiliki akses!');
         } else {
-            Traffic::destroy(decrypt($id));
+            Traffic::destroy($decrypt);
 
             return back()->with('success', 'Traffic telah dihapus');
         }

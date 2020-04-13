@@ -15,7 +15,7 @@
               <i class="fas fa-trophy text-yellow"></i> Top Kontribusi
             </a>
           </li>
-          <li class="nav-item {{ ($nav == 'penjualan ') ? 'active' : '' }}">
+          <li class="nav-item {{ ($nav == 'penjualan') ? 'active' : '' }}">
             <a class="nav-link " href="{{ url('/admin/penjualan') }}">
               <i class="ni ni-cart text-yellow"></i> Penjualan
             </a>

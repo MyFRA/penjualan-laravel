@@ -14,7 +14,7 @@
 @section('content')
 
     <div class="row">
-      <div class="col-lg-9 col-xl-9 mb-5 mb-xl-0">
+      <div class="col-lg-9 col-xl-9 mb-0 mb-xl-0">
         <div class="card shadow">
           <div class="card-header border-0">
             <h3 class="mb-0">Top Kontribusi</h3>
@@ -33,8 +33,10 @@
               <tbody>
                 @foreach ($topKontribusi as $top)
                   <tr @if($user->id == $top->id) style="background: #eee" @endif>
-                    <th style="color: {{ ( $loop->iteration == 1 ) ? '#FFD700' : '' }} {{ ( $loop->iteration == 2 ) ? '#A9A9A9' : '' }} {{ ( $loop->iteration == 3 ) ? '#cd7f32' : '' }}">
-                      <i class="fas fa-trophy fa-2x"></i>
+                    <th style="color: {{ ( $loop->iteration == 1 ) ? '#FFD700' : '' }} {{ ( $loop->iteration == 2 ) ? '#808080' : '' }} {{ ( $loop->iteration == 3 ) ? '#cd7f32' : '' }}">
+                      @if ($loop->iteration == 1 || $loop->iteration == 2 || $loop->iteration == 3 )
+                        <i class="fas fa-trophy fa-3x"></i>
+                      @endif
                     </th>
                     <th scope="row">
                       <div class="media align-items-center">

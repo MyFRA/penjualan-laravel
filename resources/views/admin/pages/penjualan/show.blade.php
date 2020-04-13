@@ -95,7 +95,6 @@
 					<hr style="border: 1px solid black">
 					<p class="mt-2 text-dark " style="font-size: 18px"  >Alamat  &nbsp;&nbsp;:&nbsp; <span>{{ $item->provinsi }},&nbsp; {{ $item->kabupaten }},&nbsp; {{ $item->kecamatan }},&nbsp; {{ $item->kelurahan }}</span></p>
 				</div>
-				
             </div>
           </div>
         </div>
@@ -103,35 +102,22 @@
         	<div class="card card-stats mb-4 mb-xl-0">
             	<div class="card-body">
             		<div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      	<h2><i class="fas fa-money-bill-wave"></i> Total Biaya</h2>
-            			<h1 class="ml-4 mt-3">RP {{ number_format($item->total_biaya, 0, '.', '.') }}</h1>
-            			<hr>
-                      	<h2 class="mt-4"><i class="fas fa-hand-holding-usd"></i> Total Keuntungan</h2>
-            			<h1 class="ml-4 mt-3 text-success"><i class="fas fa-plus"></i> RP {{ number_format($item->keuntungan, 0, '.', '.') }}</h1>
-                      	<h2 class="mt-4"><i class="fas fa-wallet"></i> Masuk Kas</h2>
-            			<h1 class="ml-4 mt-3 text-success" ><i class="fas fa-plus"></i> RP {{ number_format($item->total_biaya, 0, '.', '.') }}</h1>
-						<a class="btn btn-dark float-right mt-3" href="{{ url('/admin/penjualan') }}">Kembali</a>
-                    </div>
-                  </div>
-                </div>
-            		
+                 		<div class="row">
+                    		<div class="col">
+		                      	<h2><i class="fas fa-money-bill-wave"></i> Total Biaya</h2>
+		            			<h1 class="ml-4 mt-3">RP {{ number_format($item->total_biaya, 0, '.', '.') }}</h1>
+		            			<hr>
+		                      	<h2 class="mt-4"><i class="fas fa-hand-holding-usd"></i> Total Keuntungan</h2>
+		            			<h1 class="ml-4 mt-3 text-success"><i class="fas fa-plus"></i> RP {{ number_format($item->keuntungan, 0, '.', '.') }}</h1>
+		                      	<h2 class="mt-4"><i class="fas fa-wallet"></i> Masuk Kas</h2>
+		            			<h1 class="ml-4 mt-3 text-success" ><i class="fas fa-plus"></i> RP {{ number_format($item->total_biaya, 0, '.', '.') }}</h1>
+								<a class="btn btn-dark float-right mt-3" href="{{ url('/admin/penjualan') }}">Kembali</a>
+                    		</div>
+                  		</div>
+                	</div>
             	</div>
         	</div>
         </div>
-		
-        
 	</div>
-
-@endsection
-
-@section('script')
-
-	<script>
-		function input_penjualan () {
-			let form = document.getElementById('input_penjualan').submit()
-		}
-	</script>
 
 @endsection

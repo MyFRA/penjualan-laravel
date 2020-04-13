@@ -107,7 +107,7 @@
             		<form method="post" id="input_penjualan" action="{{ url('/admin/checkout') }}">
 						@csrf
             		</form>
-            		<button onclick="input_penjualan()" type="button" class="btn btn-primary mt-3">Bayar Sekarang</button>
+            		<button onclick="input_penjualan()" type="button" class="btn btn-primary mt-3"><i class="fas fa-cash-register"></i> Bayar Sekarang</button>
                     </div>
                   </div>
                 </div>

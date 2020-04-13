@@ -12,6 +12,8 @@ use App\Models\Barang;
 use App\Models\Traffic;
 use App\Models\Keranjang;
 use App\Models\Penjualan;
+use App\Models\Kas;
+
 
 class PenjualanController extends Controller
 {
@@ -30,44 +32,10 @@ class PenjualanController extends Controller
                         ->join('barang', 'penjualan.barang_id', '=', 'barang.id')
                         ->join('users', 'penjualan.users_id', '=', 'users.id')
                         ->join('traffics', 'penjualan.traffics_id', '=', 'traffics.id')
-                        ->where('penjualan.perusahaan_id', Auth::user()->perusahaan_id)->get(),
+                        ->where('penjualan.perusahaan_id', Auth::user()->perusahaan_id)->paginate(10),
         );
 
         return view('admin.pages.penjualan.index', $data);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $data = array(
-            'nav'       => 'penjualan',
-            'title'     => 'Penjualan',
-            'user'      => Auth::user(),
-            'penjual'   => User::select('id', 'name')->where('perusahaan_id', Auth::user()->perusahaan_id)->get(),
-            'produk'    => Barang::select('id', 'nama')->where('perusahaan_id', Auth::user()->perusahaan_id)->get(),
-            'tarffics'  => Traffic::select('id', 'nama')->where('perusahaan_id', Auth::user()->perusahaan_id)->get(),
-            'keranjang' => Keranjang::select('keranjang.id','users_id as nama_penjual', 'nama_pembeli', 'barang.nama', 'jumlah')->where('keranjang.perusahaan_id', Auth::user()->perusahaan_id)
-                            ->join('users', 'users.id', '=', 'users_id')
-                            ->join('barang', 'barang_id', '=', 'barang.id')
-                            ->get()
-        );
-
-        return view('admin.pages.penjualan.create', $data);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        
     }
 
     /**
@@ -79,10 +47,10 @@ class PenjualanController extends Controller
     public function show($id)
     {
         $data = array(
-            'nav' => 'penjualan',
+            'nav'   => 'penjualan',
             'title' => 'Detail Penjualan',
-            'user' => Auth::user(),
-            'item' => Penjualan::select('penjualan.*', 'users.name as nama_penjual', 'perusahaan.nama as nama_perusahaan', 'barang.nama as nama_barang', 'barang.satuan', 'traffics.nama as nama_traffic')
+            'user'  => Auth::user(),
+            'item'  => Penjualan::select('penjualan.*', 'users.name as nama_penjual', 'perusahaan.nama as nama_perusahaan', 'barang.nama as nama_barang', 'barang.satuan', 'traffics.nama as nama_traffic')
                                 ->join('users', 'users.id', '=', 'penjualan.users_id')
                                 ->join('barang', 'barang.id', '=', 'penjualan.barang_id')
                                 ->join('traffics', 'traffics.id', '=', 'penjualan.traffics_id')
@@ -96,28 +64,6 @@ class PenjualanController extends Controller
         return view('admin.pages.penjualan.show', $data);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.
@@ -127,6 +73,15 @@ class PenjualanController extends Controller
      */
     public function destroy($id)
     {
+        if( Auth::user()->role != 'pemilik' && Auth::user()->role != 'administrator' ) return back()->with('gagal', 'Anda tidak memiliki akses!');
+        $penjualan = Penjualan::find(decrypt($id));
+
+        Kas::create([
+            'perusahaan_id' => Auth::user()->perusahaan_id,
+            'kas'           => -$penjualan->total_biaya,
+            'pesan'         => "Karena data penjualan dengan nama pembeli $penjualan->nama_pembeli dihapus"
+        ]);
+
         Penjualan::destroy(decrypt($id));
 
         return back()->with('success', 'Penjualan telah dihapus');

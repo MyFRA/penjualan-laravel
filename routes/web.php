@@ -55,7 +55,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('/admin/profil-perusahaan', 'Admin\ProfilPerusahaanController');
 
         // Penjualan Perusahaan Route
-        Route::resource('/admin/penjualan', 'Admin\PenjualanController');
+        Route::resource('/admin/penjualan', 'Admin\PenjualanController')->only(['index', 'show', 'destroy']);
 
         // Penjualan Perusahaan Route
         Route::resource('/admin/traffics', 'Admin\TrafficsController');

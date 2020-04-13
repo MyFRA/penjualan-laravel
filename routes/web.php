@@ -39,7 +39,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('/admin/dashboard', 'Admin\DashboardController')->only(['index']);
 
         // Anggota Route
-        Route::resource('/admin/anggota', 'Admin\AnggotaController');
+        Route::resource('/admin/anggota', 'Admin\AnggotaController')->only(['index', 'show', 'update', 'destroy']);
         Route::put('/admin/anggota/{id}/{role}', 'Admin\AnggotaController@update');
 
         // Barang Route

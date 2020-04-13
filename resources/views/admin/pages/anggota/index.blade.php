@@ -8,6 +8,7 @@
 	    	<p class="text-white mt-0 mb-5">{{ $perusahaan->slogan }}</p>
 	  	</div>
 	</div>
+
   @if ($user->role == 'pemilik' || $user->role == 'administrator')
     <div class="row">
       <div class="col-md-12">
@@ -15,7 +16,7 @@
       </div>
       <div class="col-md-6">
         <div class="form-group focused d-inline">
-            <input style="color: black;" type="text" id="myInput" class="form-control form-control-alternative" readonly="" value="{{ url('/invite') }}/{{ $perusahaan->token }}">
+          <input style="color: black;" type="text" id="myInput" class="form-control form-control-alternative" readonly="" value="{{ url('/invite') }}/{{ $perusahaan->token }}">
         </div>
       </div>
       <div class="col-md-2">
@@ -25,103 +26,83 @@
   @endif
 
 @endsection
+
+
 @section('content')
-	    <div class="row">
-        <div class="col-lg-9 col-xl-9 mb-5 mb-xl-0">
-          <div class="card shadow">
-            <div class="card-header border-0">
-              <h3 class="mb-0">{{ $anggota->count() }} Anggota</h3>
-            </div>
-            <div class="table-responsive">
-              <table class="table align-items-center table-flush">
-                <thead class="thead-light">
-                  <tr>
-                    <th style="width: 20%" scope="col">Profil</th>
-                    <th scope="col">Nama</th>
-                    <th style="width: 20%" scope="col">Role</th>
-                    <th style="width: 20%" class="text-center" scope="col">Aksi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @foreach ($anggota as $anggotaPer1)
-                    <tr @if($user->id == $anggotaPer1->id) style="background: #eee" @endif>
-                      <th scope="row">
-                        <div class="media align-items-center">
-                          @if ( is_null($anggotaPer1->gambar) )
-                            <div class="card text-center ml-1">
-                              <i class="fas fa-user fa-3x"></i>
-                            </div>
-                          @else
-                            <a href="#" class="avatars rounded-circle mr-3">
-                              <img class="img-thumbnail img-fluid" src="{{ asset('/storage/profil_user') }}/{{ $anggotaPer1->gambar }}" alt="Card image cap">
-                            </a>
+
+    <div class="row">
+      <div class="col-lg-9 col-xl-9 mb-5 mb-xl-0">
+        <div class="card shadow">
+          <div class="card-header border-0">
+            <h3 class="mb-0">{{ $jmlAnggota }} Anggota</h3>
+          </div>
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+                <tr>
+                  <th style="width: 20%" scope="col">Profil</th>
+                  <th scope="col">Nama</th>
+                  <th style="width: 20%" scope="col">Role</th>
+                  <th style="width: 20%" class="text-center" scope="col">Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach ($anggota as $anggotaPer1)
+                  <tr @if($user->id == $anggotaPer1->id) style="background: #eee" @endif>
+                    <th scope="row">
+                      <div class="media align-items-center">
+                        @if ( is_null($anggotaPer1->gambar) )
+                          <div class="card text-center ml-1">
+                            <i class="fas fa-user fa-3x"></i>
+                          </div>
+                        @else
+                          <a href="#" class="avatars rounded-circle mr-3">
+                            <img class="img-thumbnail img-fluid" src="{{ asset('/storage/profil_user') }}/{{ $anggotaPer1->gambar }}" alt="Card image cap">
+                          </a>
+                        @endif
+                      </div>
+                    </th>
+                    <td>
+                      {{ $anggotaPer1->name }}
+                    </td>
+                    <td>
+                      {{ $anggotaPer1->role }}
+                    </td>
+                    <td class="text-center">
+                      <div class="dropdown">
+                        <a class="btn btn-sm btn-icon-only text-light " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="fas fa-ellipsis-v"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                          <a class="dropdown-item" href="{{ url('/admin/anggota/'.encrypt($anggotaPer1->id)) }}">Lihat {{ $anggotaPer1->name }}</a>
+                          @if ( $user->role == 'pemilik' && $user->role != $anggotaPer1->role )
+                            @if ( $anggotaPer1->role == 'administrator' )
+                              <a class="dropdown-item" href="#" onclick='updateRole("{{ $anggotaPer1->name }}", "Turunkan", "anggota", "{{ url('/admin/anggota/' . encrypt($anggotaPer1->id) . '/' . encrypt('anggota')) }}")'>Turunkan menjadi anggota</a>
+                            @else
+                              <a href="#" class="dropdown-item" onclick='updateRole("{{ $anggotaPer1->name }}", "Promosikan", "administrator", "{{ url('/admin/anggota/' . encrypt($anggotaPer1->id) . '/' . encrypt('administrator')) }}")'>Promosikan menjadi administrator</a>
+                            @endif
+                            <a class="dropdown-item" href="#" onclick='onDestroy("{{ url('/admin/anggota/' . encrypt($anggotaPer1->id)) }}", "Apakah anda yakin, akan mengeluarkan {{ $anggotaPer1->name }}?")'>Keluarkan {{ $anggotaPer1->name }}</a>
+                          @elseif( $user->role == 'administrator' && $anggotaPer1->role == 'anggota' )
+                            <a href="#" class="dropdown-item" onclick='updateRole("{{ $anggotaPer1->name }}", "Promosikan", "administrator", "{{ url('/admin/anggota/' . encrypt($anggotaPer1->id) . '/' . encrypt('administrator')) }}")'>Promosikan menjadi administrator</a>
+                            <a class="dropdown-item" href="#" onclick='onDestroy("{{ url('/admin/anggota/' . encrypt($anggotaPer1->id)) }}", "Apakah anda yakin, akan mengeluarkan " . $anggotaPer1->name . "?")'>Keluarkan {{ $anggotaPer1->name }}</a>
                           @endif
                         </div>
-                      </th>
-                      <td>
-                        {{ $anggotaPer1->name }}
-                      </td>
-                      <td>
-                        {{ $anggotaPer1->role }}
-                      </td>
-                      <td class="text-center">
-                        <div class="dropdown">
-                          <a class="btn btn-sm btn-icon-only text-light " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-ellipsis-v"></i>
-                          </a>
-                          <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                            <a class="dropdown-item" href="{{ url('/admin/anggota/'.encrypt($anggotaPer1->id)) }}">Lihat {{ $anggotaPer1->name }}</a>
-                            @if ( $user->role == 'pemilik' && $user->role != $anggotaPer1->role )
-                              @if ( $anggotaPer1->role == 'administrator' )
-                                <a class="dropdown-item" href="#" onclick='updateRole("{{ $anggotaPer1->name }}", "Turunkan", "anggota", "{{ url('/admin/anggota/' . encrypt($anggotaPer1->id) . '/' . encrypt('anggota')) }}")'>Turunkan menjadi anggota</a>
-                              @else
-                                <a href="#" class="dropdown-item" onclick='updateRole("{{ $anggotaPer1->name }}", "Promosikan", "administrator", "{{ url('/admin/anggota/' . encrypt($anggotaPer1->id) . '/' . encrypt('administrator')) }}")'>Promosikan menjadi administrator</a>
-                              @endif
-                              <a class="dropdown-item" href="#" onclick='onDestroy("{{ url('/admin/anggota/' . encrypt($anggotaPer1->id)) }}", "Apakah anda yakin, akan mengeluarkan {{ $anggotaPer1->name }}?")'>Keluarkan {{ $anggotaPer1->name }}</a>
-                            @elseif( $user->role == 'administrator' && $anggotaPer1->role == 'anggota' )
-                              <a href="#" class="dropdown-item" onclick='updateRole("{{ $anggotaPer1->name }}", "Promosikan", "administrator", "{{ url('/admin/anggota/' . encrypt($anggotaPer1->id) . '/' . encrypt('administrator')) }}")'>Promosikan menjadi administrator</a>
-                              <a class="dropdown-item" href="#" onclick='onDestroy("{{ url('/admin/anggota/' . encrypt($anggotaPer1->id)) }}", "Apakah anda yakin, akan mengeluarkan " . $anggotaPer1->name . "?")'>Keluarkan {{ $anggotaPer1->name }}</a>
-                            @endif
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                  @endforeach
-                </tbody>
-              </table>
-            </div>
-            <div class="card-footer py-4">
-              <nav aria-label="...">
-                <ul class="pagination justify-content-end mb-0">
-                  <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1">
-                      <i class="fas fa-angle-left"></i>
-                      <span class="sr-only">Previous</span>
-                    </a>
-                  </li>
-                  <li class="page-item active">
-                    <a class="page-link" href="#">1</a>
-                  </li>
-                  <li class="page-item">
-                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                  </li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item">
-                    <a class="page-link" href="#">
-                      <i class="fas fa-angle-right"></i>
-                      <span class="sr-only">Next</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
+                      </div>
+                    </td>
+                  </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+          <div class="card-footer  py-4">
+            <nav aria-label="...">
+              {{ $anggota->onEachSide(5)->links() }}
+            </nav>
           </div>
         </div>
       </div>
-@endsection
-
-@section('stylesheet')
-  <link rel="stylesheet" href="{{ url('/admin-template/sweetalert2/dist/sweetalert2.css') }}">
+    </div>
+    
 @endsection
 
 @section('script')
@@ -133,9 +114,6 @@
     @csrf
     @method('delete')
   </form>
-
-  <script src="{{ asset('/admin-template/sweetalert2/dist/sweetalert2.all.js') }}"></script>
-
 
   <script>
     function myFunction() {
@@ -149,21 +127,4 @@
 
     }
   </script>
-  @if (Session::get('gagal'))
-    <script>
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: '{{ Session::get('gagal') }}',
-      })
-    </script>
-    @elseif(Session::get('success'))
-    <script>
-      Swal.fire(
-        'Berhasil!',
-        '{{ Session::get('success') }}',
-        'success'
-      )
-    </script>
-  @endif
 @endsection

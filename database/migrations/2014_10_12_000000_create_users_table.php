@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('instansiasi', 50)->nullable();
             $table->string('no_hp', 20)->nullable();
             $table->unsignedBigInteger('perusahaan_id')->nullable();
-            $table->enum('role', ['author','pembimbing','pemilik', 'administrator', 'anggota'])->default('pemilik');
+            $table->enum('role', ['author', 'pemilik', 'administrator', 'anggota'])->default('pemilik');
             $table->string('gambar')->nullable();
             $table->string('password');
             $table->rememberToken();

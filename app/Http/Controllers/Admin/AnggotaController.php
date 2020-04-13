@@ -34,32 +34,12 @@ class AnggotaController extends Controller
                                 )'
                             )
                         )->where('perusahaan_id', Auth::user()->perusahaan_id)
-                        ->orderBy('role')->get(),
+                        ->orderBy('role')->paginate(10),
+            'jmlAnggota' => User::where('perusahaan_id', Auth::user()->perusahaan_id)->count(),
             'perusahaan' => Perusahaan::select('nama', 'slogan', 'token')->where('id', Auth::user()->perusahaan_id)->get()[0]
         );
 
         return view('admin.pages.anggota.index', $data);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -81,17 +61,6 @@ class AnggotaController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -102,7 +71,7 @@ class AnggotaController extends Controller
     {
         $anggota = User::find(decrypt($id));
 
-        if( Auth::user()->role == 'anggota' || Auth::user()->role == $anggota->role ) {
+        if( Auth::user()->role == 'anggota' || Auth::user()->role == $anggota->role || Auth::user()->perusahaan_id != $anggota->perusahaan_id) {
             return back()->with('gagal', 'anda tidak memiliki akses, untuk melakukan update!');
         } else {
             if ( Auth::user()->role == 'administrator' && $anggota->role == 'pemilik' ) return back()->with('gagal', 'anda tidak memiliki akses, untuk melakukan update!');
@@ -124,7 +93,7 @@ class AnggotaController extends Controller
     {
         $anggota = User::find(decrypt($id));
 
-        if( Auth::user()->role == 'anggota' || Auth::user()->role == $anggota->role ) {
+        if( Auth::user()->role == 'anggota' || Auth::user()->role == $anggota->role || Auth::user()->perusahaan_id != $anggota->perusahaan_id) {
             return back()->with('gagal', 'anda tidak memiliki akses, untuk melakukan update!');
         } else {
             if ( Auth::user()->role == 'administrator' && $anggota->role == 'pemilik' ) return back()->with('gagal', 'anda tidak memiliki akses, untuk melakukan update!');

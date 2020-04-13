@@ -10,8 +10,8 @@
               <i class="fas fa-users"></i> List Anggota
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link " href="./examples/profile.html">
+          <li class="nav-item {{ ($nav == 'top-kontribusi') ? 'active' : '' }}">
+            <a class="nav-link " href="{{ url('/admin/top-kontribusi') }}">
               <i class="fas fa-trophy text-yellow"></i> Top Kontribusi
             </a>
           </li>

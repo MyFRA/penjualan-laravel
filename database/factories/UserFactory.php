@@ -36,7 +36,7 @@ $factory->define(User::class, function (Faker $faker) {
         'negara'        => $faker->country,
         'instansiasi'   => $faker->company,
         'perusahaan_id' => $faker->randomElement($perusahaan),
-        'role'          => $faker->randomElement(['author','pembimbing','pemilik','administrator','anggota']),
+        'role'          => $faker->randomElement(['author','pemilik','administrator','anggota']),
         'deskripsi'     => $faker->text(200),
     ];
 });

@@ -179,7 +179,7 @@
             <tbody>
               @foreach ($topProvinsi as $provinsi)
                 <tr>
-                  <th>1</th>
+                  <th>{{ $loop->iteration }}</th>
                   <th scope="row">
                     {{ $provinsi->provinsi }}
                   </th>
@@ -215,7 +215,7 @@
             <tbody>
               @foreach ($topKabupaten as $kabupaten)
                 <tr>
-                  <th>1</th>
+                  <th>{{ $loop->iteration }}</th>
                   <th scope="row">
                     {{ $kabupaten->kabupaten }}
                   </th>
@@ -253,7 +253,7 @@
                 <tbody>
                   @foreach ($topKecamatan as $kecamatan)
                     <tr>
-                      <th>1</th>
+                      <th>{{ $loop->iteration }}</th>
                       <th scope="row">
                         {{ $kecamatan->kecamatan }}
                       </th>
@@ -289,7 +289,7 @@
                 <tbody>
                   @foreach ($topKelurahan as $kelurahan)
                     <tr>
-                      <th>1</th>
+                      <th>{{ $loop->iteration }}</th>
                       <th scope="row">
                         {{ $kelurahan->kelurahan }}
                       </th>

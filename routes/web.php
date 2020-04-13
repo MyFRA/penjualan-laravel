@@ -70,6 +70,9 @@ Route::middleware(['auth'])->group(function () {
         // Kas Controller
         Route::resource('/admin/kas', 'Admin\KasController');
 
+        // Top Kontribusi Controller
+        Route::resource('/admin/top-kontribusi', 'Admin\TopKontribusiController')->only(['index']);
+
     });
 
 });

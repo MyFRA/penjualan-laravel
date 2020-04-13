@@ -49,7 +49,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('/admin/alamat', 'Admin\AlamatController');
 
         // Profil Route
-        Route::resource('/admin/profil', 'Admin\ProfilController');
+        Route::resource('/admin/profil', 'Admin\ProfilController')->only(['index', 'edit', 'update']);
 
         // Profil Perusahaan Route
         Route::resource('/admin/profil-perusahaan', 'Admin\ProfilPerusahaanController');

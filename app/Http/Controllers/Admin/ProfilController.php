@@ -21,43 +21,11 @@ class ProfilController extends Controller
     {
         $data = array(
             'title' => 'Profil',
-            'nav' => 'profil',
-            'user' => Auth::user(),
+            'nav'   => 'profil',
+            'user'  => Auth::user(),
         );
 
         return view('admin.pages.profil.index', $data);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -72,9 +40,9 @@ class ProfilController extends Controller
 
         $data = array(
             'title' => 'Profil',
-            'nav' => 'profil',
-            'user' => Auth::user(),
-            'item' => User::find(decrypt($id)),
+            'nav'   => 'profil',
+            'user'  => Auth::user(),
+            'item'  => User::find(decrypt($id)),
         );
 
         return view('admin.pages.profil.edit', $data);
@@ -97,16 +65,18 @@ class ProfilController extends Controller
         $validator = Validator::make($request->all(), [
             'name'          => 'required|max:50',
             'email'         => 'required|max:50',
-            'umur'          => 'numeric',
+            'umur'          => 'required|numeric|max:200',
             'alamat'        => 'max:255',
             'negara'        => 'max:50',
             'instansiasi'   => 'max:50',
         ], [
-            'name.required' => 'nama tidak boleh kosong',
-            'name.max'      => 'nama maksimal 50 karakter',
-            'umur.numeric'  => 'umur hanya boleh angka',
-            'alamat.max'    => 'alamat maksimal 255 karakter',
-            'negara.max'    => 'negara maksimal 50 karakter',
+            'name.required'     => 'nama tidak boleh kosong',
+            'name.max'          => 'nama maksimal 50 karakter',
+            'umur.required'     => 'umur tidak boleh kosong',
+            'umur.numeric'      => 'umur hanya boleh angka',
+            'umur.max'          => 'umur maksimal 200 tahun',
+            'alamat.max'        => 'alamat maksimal 255 karakter',
+            'negara.max'        => 'negara maksimal 50 karakter',
             'instansiasi.max'   => 'instansiasi maksimal 50 karakter',
         ]);
 
@@ -120,16 +90,6 @@ class ProfilController extends Controller
         }       
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 
     public function updateProfil($request, $id)
     {
@@ -154,8 +114,8 @@ class ProfilController extends Controller
 
             if( !in_array($request->file('gambar')->getClientOriginalExtension(), $ekstensiValid) ) return false;
 
-            if ($exists = Storage::disk('local')->exists('profil_user/' . $data->gambar)) {
-                Storage::disk('local')->delete('profil_user/' . $data->gambar);
+            if ($exists = Storage::disk('local')->exists('public/profil_user/' . $data->gambar)) {
+                Storage::disk('local')->delete('public/profil_user/' . $data->gambar);
             }
 
             $namaGambar = explode('.', $request->file('gambar')->getClientOriginalName())[0];

@@ -12,7 +12,7 @@
       <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
           <div class="card text-center ">
               <i style="{{ !is_null($item->gambar) ? 'display: none' : '' }}" class="fas fa-user fa-10x pt-5 pb-5"></i>
-            <img style="{{ is_null($item->gambar) ? 'display: none' : '' }}" class="img-thumbnail img-fluid" src="{{ asset('/storage/profil_user') }}/{{ $item->gambar }}" alt="Card image cap">
+              <img style="{{ is_null($item->gambar) ? 'display: none' : '' }}" class="img-thumbnail img-fluid" src="{{ asset('/storage/profil_user') }}/{{ $item->gambar }}" alt="Card image cap">
           </div>
       </div>
       <div class="col-xl-8 order-xl-1">

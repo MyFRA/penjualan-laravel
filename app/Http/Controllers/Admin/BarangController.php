@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 
 use App\Models\Barang;
 use App\Models\Perusahaan;
+use App\Models\Penjualan;
 
 class BarangController extends Controller
 {
@@ -24,8 +25,8 @@ class BarangController extends Controller
             'title' => 'Produk',
             'nav'   => 'produk',
             'user'  => Auth::user(),
-            'namaPerusahaan' => Perusahaan::find(Auth::user()->perusahaan_id)->nama,
-            'items' => Barang::where('perusahaan_id', Auth::user()->perusahaan_id)->orderBy('id', 'DESC')->get(),
+            'items' => Barang::where('perusahaan_id', Auth::user()->perusahaan_id)
+                               ->orderBy('nama', 'ASC')->paginate(10),
             'jmlProduk' => Barang::where('perusahaan_id', Auth::user()->perusahaan_id)->count(),
         );
 
@@ -39,7 +40,13 @@ class BarangController extends Controller
      */
     public function create()
     {
-        //
+        $data = array(
+            'title' => 'Produk',
+            'nav'   => 'produk',
+            'user'  => Auth::user(),
+        );
+
+        return view('admin.pages.barang.create', $data);
     }
 
     /**
@@ -50,36 +57,36 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
+        if( Auth::user()->role != 'pemilik' && Auth::user()->role != 'administrator' ) return back()->with('gagal', 'Kamu tidak memiliki akses');
+
         $validator = Validator::make($request->all(), [
-            'nama' => 'required|max:100',
-            'harga_asli' => 'required|numeric',
-            'harga_jual' => 'required|numeric',
-            'satuan'     => 'required|max:20'
+            'nama'          => 'required|max:100',
+            'harga_asli'    => 'required|numeric',
+            'harga_jual'    => 'required|numeric',
+            'satuan'        => 'required|max:20'
         ], [
-            "nama.required" => "Nama Produk Harus Diisi",
-            "nama.max" => "Nama Produk Maks 100 Karakter",
-            "harga_asli.required" => "Harga asli Produk Harus Diisi",
-            "harga_asli.numeric" => "Harga asli Harus Angka",
-            "harga_jual.required" => "Harga jual Produk Harus Diisi",
-            "harga_jual.numeric" => "Harga jual Harus Angka",
-            'satuan.required'   => 'satuan tidak boleh kosong',
-            'satuan.max'        => 'satuan maksimal 20 karakter',
+            "nama.required"         => "Nama Produk Harus Diisi",
+            "nama.max"              => "Nama Produk Maks 100 Karakter",
+            "harga_asli.required"   => "Harga asli Produk Harus Diisi",
+            "harga_asli.numeric"    => "Harga asli Harus Angka",
+            "harga_jual.required"   => "Harga jual Produk Harus Diisi",
+            "harga_jual.numeric"    => "Harga jual Harus Angka",
+            'satuan.required'       => 'satuan tidak boleh kosong',
+            'satuan.max'            => 'satuan maksimal 20 karakter',
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()
                         ->withErrors($validator)
-                        ->with('gagal', 'Produk Gagal Ditambahkan');
+                        ->withInput();
         } else {
             if ($this->storeProduct($request) != true) {
                 return redirect()->back()
-                        ->withErrors('File Yang Kamu Upload Bukan Gambar')
-                        ->with('gagal', 'Produk Gagal Ditambahkan');
+                                ->with('gagal', 'File yang kamu upload bukan gambar');
             } else {
-                return redirect()->back()->with('success', "Produk $request->nama Telah Ditambahkan");
+                return redirect('/admin/produk')->with('success', "Produk $request->nama Telah Ditambahkan");
             }
         }
-
     }
 
     /**
@@ -91,11 +98,11 @@ class BarangController extends Controller
     public function show($id)
     {
         $data = array(
-            'title' => 'Produk',
-            'nav'   => 'produk',
-            'user'  => Auth::user(),
-            'namaPerusahaan' => Perusahaan::find(Auth::user()->perusahaan_id)->nama,
-            'item'  => Barang::find(decrypt($id)),
+            'title'     => 'Produk',
+            'nav'       => 'produk',
+            'user'      => Auth::user(),
+            'item'      => Barang::find(decrypt($id)),
+            'terjual'   => Penjualan::where('barang_id', decrypt($id))->sum('jumlah'),
         );
 
         return view('admin.pages.barang.show', $data);
@@ -109,6 +116,7 @@ class BarangController extends Controller
      */
     public function edit($id)
     {
+        if( Auth::user()->role != 'pemilik' && Auth::user()->role != 'administrator' ) return back()->with('gagal', 'Kamu tidak memiliki akses');
         $data = array(
             'title' => 'Produk',
             'nav'   => 'produk',
@@ -129,14 +137,37 @@ class BarangController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = Barang::find(decrypt($id));
-        $data->update([
-            'nama' => $request->nama,
-            'harga' => $request->harga,
-            'deskripsi' => $request->deskripsi,
+        if( Auth::user()->role != 'pemilik' && Auth::user()->role != 'administrator' ) return back()->with('gagal', 'Kamu tidak memiliki akses');
+
+        $validator = Validator::make($request->all(), [
+            'nama'          => 'required|max:100',
+            'harga_asli'    => 'required|numeric',
+            'harga_jual'    => 'required|numeric',
+            'satuan'        => 'required|max:20'
+        ], [
+            "nama.required"         => "Nama Produk Harus Diisi",
+            "nama.max"              => "Nama Produk Maks 100 Karakter",
+            "harga_asli.required"   => "Harga asli Produk Harus Diisi",
+            "harga_asli.numeric"    => "Harga asli Harus Angka",
+            "harga_jual.required"   => "Harga jual Produk Harus Diisi",
+            "harga_jual.numeric"    => "Harga jual Harus Angka",
+            'satuan.required'       => 'satuan tidak boleh kosong',
+            'satuan.max'            => 'satuan maksimal 20 karakter',
         ]);
 
-        return redirect('/admin/produk')->with('success', "Produk $request->nama telah diubah");
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        } else {
+            if ($this->updateProduct($request, $id) != true) {
+                return redirect()->back()
+                                ->with('gagal', 'File yang kamu upload bukan gambar');
+            } else {
+                return redirect('/admin/produk')->with('success', "Produk $request->nama Telah Diubah");
+            }
+        }
+
     }
 
     /**
@@ -147,9 +178,14 @@ class BarangController extends Controller
      */
     public function destroy($id)
     {   
+        if( Auth::user()->role != 'pemilik' && Auth::user()->role != 'administrator' ) return back()->with('gagal', 'Kamu tidak memiliki akses');
+        if( Penjualan::where('barang_id', decrypt($id))->count() >= 0 ) return back()->with('gagal', 'Produk tidak dapat dihapus');
+        
         $produk = Barang::find(decrypt($id));
-        $cek    = Storage::disk('local')->exists('/public/' . Perusahaan::find(Auth::user()->perusahaan_id)->nama . '/' . $produk->gambar);
-        if($cek) Storage::disk('local')->delete('/public/' . Perusahaan::find(Auth::user()->perusahaan_id)->nama . '/' . $produk->gambar); 
+
+        $cek    = Storage::disk('local')->exists('public/foto_produk/' . $produk->gambar);
+        if($cek) Storage::disk('local')->delete('public/foto_produk/' . $produk->gambar); 
+
         Barang::destroy(decrypt($id));
         return redirect()->back()->with('success', "Produk $produk->nama Telah Dihapus");
     }
@@ -158,17 +194,17 @@ class BarangController extends Controller
     {
         if(empty($request->file())) {
             Barang::create([
-                'nama' => $request->nama,
-                'harga_asli' => $request->harga_asli,
-                'harga_jual' => $request->harga_jual,
-                'satuan' => $request->satuan,
-                'deskripsi' => $request->deskripsi,
+                'nama'          => $request->nama,
+                'harga_asli'    => $request->harga_asli,
+                'harga_jual'    => $request->harga_jual,
+                'satuan'        => $request->satuan,
+                'deskripsi'     => $request->deskripsi,
                 'perusahaan_id' => Auth::user()->perusahaan_id,
             ]);
             return true;
         } else {
-            $file = $request->file('gambar');
-            $ekstensiValid = ['jpeg', 'png', 'bmp', 'gif', 'svg','webp', 'jpg'];
+            $file           = $request->file('gambar');
+            $ekstensiValid  = ['jpeg', 'png', 'bmp', 'gif', 'svg','webp', 'jpg'];
             if (!in_array($file->getClientOriginalExtension(), $ekstensiValid)) return false;
             
             $namaPerusahaan = Perusahaan::find(Auth::user()->perusahaan_id)->nama;
@@ -176,15 +212,57 @@ class BarangController extends Controller
             
             Storage::putFileAs('public/foto_produk/', $file, $namaGambar);
             Barang::create([
-                'nama' => $request->nama,
-                'harga_asli' => $request->harga_asli,
-                'harga_jual' => $request->harga_jual,
-                'satuan' => $request->satuan,
-                'deskripsi' => $request->deskripsi,
+                'nama'          => $request->nama,
+                'harga_asli'    => $request->harga_asli,
+                'harga_jual'    => $request->harga_jual,
+                'satuan'        => $request->satuan,
+                'deskripsi'     => $request->deskripsi,
                 'perusahaan_id' => Auth::user()->perusahaan_id,
-                'gambar' => $namaGambar
+                'gambar'        => $namaGambar
+            ]);
+            return true;
+        }
+    }
+
+    public function updateProduct($request, $id)
+    {
+        $data = Barang::find(decrypt($id));
+
+        if(empty($request->file())) {
+            $data->update([
+                'nama'          => $request->nama,
+                'deskripsi'     => $request->deskripsi,
+                'perusahaan_id' => Auth::user()->perusahaan_id,
+                'harga_asli'    => $request->harga_asli,
+                'harga_jual'    => $request->harga_jual,
+                'satuan'        => $request->satuan,
+            ]);
+            return true;
+        } else {
+            $produk = Barang::find(decrypt($id));
+            $file           = $request->file('gambar');
+            $ekstensiValid  = ['jpeg', 'png', 'bmp', 'gif', 'svg','webp', 'jpg'];
+            if (!in_array($file->getClientOriginalExtension(), $ekstensiValid)) return false;
+            
+            $namaPerusahaan = Perusahaan::find(Auth::user()->perusahaan_id)->nama;
+            $namaGambar     = (explode('.', $file->getClientOriginalName()))[0] . '-' . time() . '.' . $file->getClientOriginalExtension();
+            
+            $cek    = Storage::disk('local')->exists('/public/foto_produk/' . $produk->gambar);
+            if($cek) Storage::disk('local')->delete('/public/foto_produk/' . $produk->gambar); 
+            
+            Storage::putFileAs('public/foto_produk/', $file, $namaGambar);
+            $data->update([
+                'nama'          => $request->nama,
+                'deskripsi'     => $request->deskripsi,
+                'perusahaan_id' => Auth::user()->perusahaan_id,
+                'gambar'        => $namaGambar,
+                'harga_asli'    => $request->harga_asli,
+                'harga_jual'    => $request->harga_jual,
+                'satuan'        => $request->satuan,
             ]);
             return true;
         }
     }
 }
+
+

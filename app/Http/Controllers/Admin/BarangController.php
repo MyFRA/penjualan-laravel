@@ -40,6 +40,8 @@ class BarangController extends Controller
      */
     public function create()
     {
+        if( Auth::user()->role != 'pemilik' && Auth::user()->role != 'administrator' ) return back()->with('gagal', 'Kamu tidak memiliki akses');
+        
         $data = array(
             'title' => 'Produk',
             'nav'   => 'produk',

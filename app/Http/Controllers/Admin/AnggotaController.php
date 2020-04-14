@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 use App\Models\Perusahaan;
+use App\Models\Penjualan;
 use App\User;
 use DB;
 
@@ -91,6 +92,8 @@ class AnggotaController extends Controller
      */
     public function destroy($id)
     {
+        if( Penjualan::where('users_id', decrypt($id))->count() > 0 ) return back()->with('gagal', 'Anggota tidak bisa dihapus');
+
         $anggota = User::find(decrypt($id));
 
         if( Auth::user()->role == 'anggota' || Auth::user()->role == $anggota->role || Auth::user()->perusahaan_id != $anggota->perusahaan_id) {

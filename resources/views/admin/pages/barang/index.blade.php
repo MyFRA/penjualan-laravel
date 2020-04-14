@@ -4,23 +4,25 @@
 
   <div class="row">
     <div class="col-lg-7 col-md-9">
-        <h1 class="display-2 text-white"><i class="fas fa-shopping-bag"></i> Produk</h1>
-        <p class="text-white mt-0 mb-2">Menampilkan List Daftar Produk</p>
-      </div>
-      <div class="offset-md-1 col-md-2  offset-lg-1 col-lg-3">
-        <h1 class="display-3 text-white float-right ">{{ $jmlProduk }} Produk</h1>
-      </div>
+      <h1 class="display-2 text-white"><i class="fas fa-shopping-bag"></i> Produk</h1>
+      <p class="text-white mt-0 mb-2">Menampilkan List Daftar Produk</p>
+    </div>
+    <div class="offset-md-1 col-md-2  offset-lg-1 col-lg-3">
+      <h1 class="display-3 text-white float-right ">{{ $jmlProduk }} Produk</h1>
+    </div>
   </div>
 
 @endsection
 
 @section('content')
 
-	<div class="row">
-		<div style="margin-top: -20px" class="col-md-6 mb-3">
-			<a href="{{ url('/admin/produk/create') }}" class="btn btn-success"><i class="fas fa-plus"></i> Tambah Produk</a> 
+  @if ( $user->role == 'pemilik' || $user->role == 'administrator' )
+    <div class="row">
+      <div style="margin-top: -20px" class="col-md-6 mb-3">
+        <a href="{{ url('/admin/produk/create') }}" class="btn btn-success"><i class="fas fa-plus"></i> Tambah Produk</a> 
+      </div>
     </div>
-	</div>
+  @endif
 	<div class="row">
     <div class="col">
       <div class="card shadow">

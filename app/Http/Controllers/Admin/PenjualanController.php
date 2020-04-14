@@ -25,14 +25,17 @@ class PenjualanController extends Controller
     public function index()
     {
         $data = array(
-            'nav'       => 'penjualan',
-            'title'     => 'Penjualan',
-            'user'      => Auth::user(),
-            'penjualan' => Penjualan::select('penjualan.id', 'penjualan.jumlah', 'penjualan.created_at', 'penjualan.status', 'barang.nama as nama_barang', 'barang.gambar', 'barang.satuan', 'users.name as nama_penjual', 'traffics.nama as nama_traffic')
-                        ->join('barang', 'penjualan.barang_id', '=', 'barang.id')
-                        ->join('users', 'penjualan.users_id', '=', 'users.id')
-                        ->join('traffics', 'penjualan.traffics_id', '=', 'traffics.id')
-                        ->where('penjualan.perusahaan_id', Auth::user()->perusahaan_id)->paginate(10),
+            'nav'           => 'penjualan',
+            'title'         => 'Penjualan',
+            'user'          => Auth::user(),
+            'penjualan'     => Penjualan::select('penjualan.id', 'penjualan.jumlah', 'penjualan.created_at', 'penjualan.status', 'barang.nama as nama_barang', 'barang.gambar', 'barang.satuan', 'users.name as nama_penjual', 'traffics.nama as nama_traffic')
+                            ->join('barang', 'penjualan.barang_id', '=', 'barang.id')
+                            ->join('users', 'penjualan.users_id', '=', 'users.id')
+                            ->join('traffics', 'penjualan.traffics_id', '=', 'traffics.id')
+                            ->where('penjualan.perusahaan_id', Auth::user()->perusahaan_id)
+                            ->orderBy('id', 'DESC')
+                            ->paginate(10),
+            'totalPenjualan' => Penjualan::where('perusahaan_id', Auth::user()->perusahaan_id)->count(),
         );
 
         return view('admin.pages.penjualan.index', $data);

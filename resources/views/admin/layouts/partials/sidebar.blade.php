@@ -45,18 +45,8 @@
               <i class="fas fa-wallet text-info"></i> Kas
             </a>
           </li>
-          <li class="nav-item {{ ($nav == 'bantuan') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ url('/admin/bantuan') }}">
-              <i class="ni ni-key-25 text-info"></i> Bantuan
-            </a>
-          </li>
-          <li class="nav-item {{ ($nav == 'tentang') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ url('/admin/tentang') }}">
-              <i class="fas fa-info-circle text-info"></i> Tentang
-            </a>
-          </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url('/admin/logout') }}">
+            <a class="nav-link" onclick="logout('{{ url('/admin/logout') }}')" href="">
               <i class="ni ni-key-25 text-info"></i> Logout
             </a>
           </li>

@@ -20,45 +20,13 @@ class ProfilPerusahaanController extends Controller
     public function index()
     {
         $data = array(
-            'nav' => 'profil-perusahaan',
-            'title' => 'Profil Perusahaan',
-            'user' => Auth::user(),
-            'perusahaan' => Perusahaan::Find(Auth::user()->perusahaan_id),
+            'nav'           => 'profil-perusahaan',
+            'title'         => 'Profil Perusahaan',
+            'user'          => Auth::user(),
+            'perusahaan'    => Perusahaan::Find(Auth::user()->perusahaan_id),
         );
 
         return view('admin.pages.profil-perusahaan.index', $data);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -69,11 +37,13 @@ class ProfilPerusahaanController extends Controller
      */
     public function edit($id)
     {
+        if( Auth::user()->role != 'pemilik' && Auth::user()->role != 'administrator' ) return back()->with('gagal', 'Kamu tidak memiliki akses');
+
         $data = array(
-            'nav' => 'profil-perusahaan',
-            'title' => 'Profil Perusahaan',
-            'user' => Auth::user(),
-            'perusahaan' => Perusahaan::find(decrypt($id))
+            'nav'           => 'profil-perusahaan',
+            'title'         => 'Profil Perusahaan',
+            'user'          => Auth::user(),
+            'perusahaan'    => Perusahaan::find(decrypt($id))
         );
 
         return view('admin.pages.profil-perusahaan.edit', $data);
@@ -88,27 +58,29 @@ class ProfilPerusahaanController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if( Auth::user()->role != 'pemilik' && Auth::user()->role != 'administrator' ) return back()->with('gagal', 'Kamu tidak memiliki akses');
+
         $validator = Validator::make($request->all(), [
-            'nama' => 'required|max:100',
-            'slogan' => 'required|max:100',
-            'telp' => 'max:20',
-            'email' => 'required|max:128',
-            'fax' => 'max:32',
-            'site' => 'max:64',
-            'facebook' => 'max:64',
+            'nama'      => 'required|max:100',
+            'slogan'    => 'required|max:100',
+            'telp'      => 'max:20',
+            'email'     => 'required|max:128',
+            'fax'       => 'max:32',
+            'site'      => 'max:64',
+            'facebook'  => 'max:64',
             'instagram' => 'max:64',
         ], [
-            'nama.required' => 'nama tidak boleh kosong',
-            'nama.max' => 'nama maksimal 100 karakter',
-            'slogan.required' => 'slogan tidak boleh kosong',
-            'slogan.max' => 'slogan maksimal 100 karakter',
-            'telp.max' => 'telp maksimal 20 karakter',
-            'email.required' => 'email tidak boleh kosong',
-            'email.max' => 'email maksimal 128 karakter',
-            'fax.max' => 'fax maksimal 32 karakter',
-            'site.max' => 'site maksimal 64 karakter',
-            'facebook.max' => 'facebook maksimal 64 karakter',
-            'instagram.max' => 'instagram maksimal 64 karakter',
+            'nama.required'     => 'nama tidak boleh kosong',
+            'nama.max'          => 'nama maksimal 100 karakter',
+            'slogan.required'   => 'slogan tidak boleh kosong',
+            'slogan.max'        => 'slogan maksimal 100 karakter',
+            'telp.max'          => 'telp maksimal 20 karakter',
+            'email.required'    => 'email tidak boleh kosong',
+            'email.max'         => 'email maksimal 128 karakter',
+            'fax.max'           => 'fax maksimal 32 karakter',
+            'site.max'          => 'site maksimal 64 karakter',
+            'facebook.max'      => 'facebook maksimal 64 karakter',
+            'instagram.max'     => 'instagram maksimal 64 karakter',
         ]);
 
         if ($validator->fails()) {

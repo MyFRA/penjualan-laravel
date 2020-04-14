@@ -37,3 +37,21 @@ function onDestroy (url, pesan) {
 	  }
 	})
 }
+
+function logout(link)
+{
+	event.preventDefault()
+	Swal.fire({
+	  title: 'Yakin?',
+	  text: "Apakah kamu ingin logout?",
+	  icon: 'warning',
+	  showCancelButton: true,
+	  confirmButtonColor: '#3085d6',
+	  cancelButtonColor: '#d33',
+	  confirmButtonText: 'Logout'
+	}).then((result) => {
+	  if (result.value) {
+	   	window.location = link
+	  }
+	})
+}

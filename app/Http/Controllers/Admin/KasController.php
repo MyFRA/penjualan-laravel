@@ -19,24 +19,14 @@ class KasController extends Controller
     public function index()
     {
         $data = array(
-            'nav' => 'kas',
-            'title' => 'Kas',
-            'kas' => Kas::where('perusahaan_id', Auth::user()->perusahaan_id)->orderBy('id', 'DESC')->get(),
+            'nav'       => 'kas',
+            'title'     => 'Kas',
+            'kas'       => Kas::where('perusahaan_id', Auth::user()->perusahaan_id)->orderBy('id', 'DESC')->paginate(10),
             'jumlahKas' => Kas::where('perusahaan_id', Auth::user()->perusahaan_id)->sum('kas'),
-            'user' => Auth::user()
+            'user'      => Auth::user()
         );
 
         return view('admin.pages.kas.index', $data);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -47,13 +37,15 @@ class KasController extends Controller
      */
     public function store(Request $request)
     {
+        if ( Auth::user()->role != 'pemilik' && Auth::user()->role != 'administrator' ) return back()->with('Anda tidak memiliki akses!');
+
         $validator = Validator::make($request->all(), [
-            'kas' => 'required|numeric',
+            'kas'   => 'required|numeric',
             'pesan' => 'required|max:64',
         ], [
-            'kas.required' => 'kas tidak boleh kosong',
-            'kas.numeric' => 'kas harus angka',
-            'pesan.max' => 'pesan maksimal 64 karakter',
+            'kas.required'  => 'kas tidak boleh kosong',
+            'kas.numeric'   => 'kas harus angka',
+            'pesan.max'     => 'pesan maksimal 64 karakter',
         ]);
 
         if ($validator->fails()) {
@@ -64,56 +56,11 @@ class KasController extends Controller
         } else {
             Kas::create([
                 'perusahaan_id' => Auth::user()->perusahaan_id,
-                'kas' => -$request->kas,
-                'pesan' => $request->pesan,
+                'kas'           => -$request->kas,
+                'pesan'         => $request->pesan,
             ]);
 
             return back()->with('success', 'Uang telah diambil');
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

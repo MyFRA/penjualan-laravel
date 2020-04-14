@@ -14,15 +14,6 @@ use App\Models\Keranjang;
 
 class KeranjangController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -31,6 +22,7 @@ class KeranjangController extends Controller
      */
     public function create()
     {
+        if( Auth::user()->role == 'anggota' ) return redirect('/admin/dashboard')->with('gagal', 'kamu tidak memiliki akses');
         $data = array(
             'nav'       => 'penjualan',
             'title'     => 'Keranjang',
@@ -55,6 +47,8 @@ class KeranjangController extends Controller
      */
     public function store(Request $request)
     {
+        if( Auth::user()->role == 'anggota' ) return redirect('/admin/dashboard')->with('gagal', 'kamu tidak memiliki akses');
+
         $users_id = decrypt($request->penjual);
         if ( User::where('id', $users_id)->count() < 1 ) return back()->with('gagal', 'id tidak terdaftar');
         if ( Traffic::where('id', $request->traffics_id)->count() < 1 ) return back()->with('gagal', 'traffic tidak terdaftar');
@@ -119,6 +113,8 @@ class KeranjangController extends Controller
 
     public function addStore(Request $request)
     {
+        if( Auth::user()->role == 'anggota' ) return redirect('/admin/dashboard')->with('gagal', 'kamu tidak memiliki akses');
+
         if ( Barang::where('id', $request->barang_id)->count() < 1 ) return back()->with('gagal', 'Barang tidak terdaftar');
         
         $validator = Validator::make($request->all(), [
@@ -161,40 +157,6 @@ class KeranjangController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
@@ -202,6 +164,8 @@ class KeranjangController extends Controller
      */
     public function destroy($id)
     {
+        if( Auth::user()->role == 'anggota' ) return redirect('/admin/dashboard')->with('gagal', 'kamu tidak memiliki akses');
+        
         Keranjang::destroy(decrypt($id));
         return back()->with('success', 'Produk keranjang telah dihapus');
     }

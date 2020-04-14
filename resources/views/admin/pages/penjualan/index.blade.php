@@ -23,7 +23,7 @@
         <div class="col">
           <div class="card shadow">
             <div class="card-header border-0">
-              <h3 class="mb-0">10 Penjualan</h3>
+              <h3 class="mb-0">{{ $totalPenjualan }} Penjualan</h3>
             </div>
             <div class="table-responsive">
               <table class="table align-items-center table-flush">

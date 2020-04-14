@@ -13,14 +13,16 @@
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/invite/{token}', 'InviteController@index');
 Route::get('/', function () {
     return view('landing');
 });
 
+// Halaman Login Undangan
+Route::get('/invite/{token}', 'InviteController@index');
+
 // Halaman Admin
 Route::middleware(['auth'])->group(function () {
+
     Route::get('/admin/bridge', function () {
         if (Auth::user()->perusahaan_id == NULL) return redirect('/admin/perusahaan');
         return redirect('/admin/dashboard');
@@ -45,14 +47,11 @@ Route::middleware(['auth'])->group(function () {
         // Barang Route
         Route::resource('/admin/produk', 'Admin\BarangController');
 
-        // Alamat Route
-        Route::resource('/admin/alamat', 'Admin\AlamatController');
-
         // Profil Route
         Route::resource('/admin/profil', 'Admin\ProfilController')->only(['index', 'edit', 'update']);
 
         // Profil Perusahaan Route
-        Route::resource('/admin/profil-perusahaan', 'Admin\ProfilPerusahaanController');
+        Route::resource('/admin/profil-perusahaan', 'Admin\ProfilPerusahaanController')->only(['index', 'edit', 'update']);
 
         // Penjualan Perusahaan Route
         Route::resource('/admin/penjualan', 'Admin\PenjualanController')->only(['index', 'show', 'destroy']);
@@ -61,14 +60,14 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('/admin/traffics', 'Admin\TrafficsController')->except(['show']);
 
         // Keranjang Route
-        Route::resource('/admin/keranjang', 'Admin\KeranjangController');
+        Route::resource('/admin/keranjang', 'Admin\KeranjangController')->only(['create', 'store', 'destroy']);
         Route::post('/admin/keranjang/add', 'Admin\KeranjangController@addStore');
 
         // Checkout Controller 
-        Route::resource('/admin/checkout', 'Admin\CheckoutController');
+        Route::resource('/admin/checkout', 'Admin\CheckoutController')->only(['index', 'store']);
 
         // Kas Controller
-        Route::resource('/admin/kas', 'Admin\KasController');
+        Route::resource('/admin/kas', 'Admin\KasController')->only(['index', 'store']);
 
         // Top Kontribusi Controller
         Route::resource('/admin/top-kontribusi', 'Admin\TopKontribusiController')->only(['index']);
@@ -77,6 +76,6 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
-Route::get('/app-admin', function () {
+Route::get('/admin', function () {
     return redirect('/login');
 });

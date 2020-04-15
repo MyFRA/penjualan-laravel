@@ -20,6 +20,7 @@ class DashboardController extends Controller {
      */
     public function index() 
     {
+        if( Auth::user()->role == 'author' ) return redirect('/admin/list-perusahaan');
         $data = [
             'title' => 'Dashboard',
             'nav'   => 'dashboard',

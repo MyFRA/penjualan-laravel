@@ -22,6 +22,8 @@ class KeranjangController extends Controller
      */
     public function create()
     {
+        if( Auth::user()->role == 'author' ) return redirect('/admin/list-perusahaan');
+
         if( Auth::user()->role == 'anggota' ) return redirect('/admin/dashboard')->with('gagal', 'kamu tidak memiliki akses');
         $data = array(
             'nav'       => 'penjualan',
@@ -47,6 +49,8 @@ class KeranjangController extends Controller
      */
     public function store(Request $request)
     {
+        if( Auth::user()->role == 'author' ) return redirect('/admin/list-perusahaan');
+
         if( Auth::user()->role == 'anggota' ) return redirect('/admin/dashboard')->with('gagal', 'kamu tidak memiliki akses');
 
         $users_id = decrypt($request->penjual);
@@ -113,6 +117,8 @@ class KeranjangController extends Controller
 
     public function addStore(Request $request)
     {
+        if( Auth::user()->role == 'author' ) return redirect('/admin/list-perusahaan');
+
         if( Auth::user()->role == 'anggota' ) return redirect('/admin/dashboard')->with('gagal', 'kamu tidak memiliki akses');
 
         if ( Barang::where('id', $request->barang_id)->count() < 1 ) return back()->with('gagal', 'Barang tidak terdaftar');
@@ -164,6 +170,8 @@ class KeranjangController extends Controller
      */
     public function destroy($id)
     {
+        if( Auth::user()->role == 'author' ) return redirect('/admin/list-perusahaan');
+        
         if( Auth::user()->role == 'anggota' ) return redirect('/admin/dashboard')->with('gagal', 'kamu tidak memiliki akses');
         
         Keranjang::destroy(decrypt($id));

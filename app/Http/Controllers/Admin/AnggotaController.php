@@ -21,6 +21,8 @@ class AnggotaController extends Controller
      */
     public function index()
     {
+        if( Auth::user()->role == 'author' ) return redirect('/admin/list-perusahaan');
+
         $data = array(
             'title' => 'Anggota',
             'nav'   => 'anggota',
@@ -51,6 +53,8 @@ class AnggotaController extends Controller
      */
     public function show($id)
     {
+        if( Auth::user()->role == 'author' ) return redirect('/admin/list-perusahaan');
+
         $data = array(
             'user'  => Auth::user(),
             'title' => 'Profil Anggota',
@@ -70,6 +74,8 @@ class AnggotaController extends Controller
      */
     public function update(Request $request, $id, $role)
     {
+        if( Auth::user()->role == 'author' ) return redirect('/admin/list-perusahaan');
+
         $anggota = User::find(decrypt($id));
 
         if( Auth::user()->role == 'anggota' || Auth::user()->role == $anggota->role || Auth::user()->perusahaan_id != $anggota->perusahaan_id) {
@@ -92,6 +98,8 @@ class AnggotaController extends Controller
      */
     public function destroy($id)
     {
+        if( Auth::user()->role == 'author' ) return redirect('/admin/list-perusahaan');
+        
         if( Penjualan::where('users_id', decrypt($id))->count() > 0 ) return back()->with('gagal', 'Anggota tidak bisa dihapus');
 
         $anggota = User::find(decrypt($id));

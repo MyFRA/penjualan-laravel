@@ -24,6 +24,8 @@ class PenjualanController extends Controller
      */
     public function index()
     {
+        if( Auth::user()->role == 'author' ) return redirect('/admin/list-perusahaan');
+
         $data = array(
             'nav'           => 'penjualan',
             'title'         => 'Penjualan',
@@ -49,6 +51,8 @@ class PenjualanController extends Controller
      */
     public function show($id)
     {
+        if( Auth::user()->role == 'author' ) return redirect('/admin/list-perusahaan');
+
         $data = array(
             'nav'   => 'penjualan',
             'title' => 'Detail Penjualan',
@@ -76,6 +80,8 @@ class PenjualanController extends Controller
      */
     public function destroy($id)
     {
+        if( Auth::user()->role == 'author' ) return redirect('/admin/list-perusahaan');
+        
         if( Auth::user()->role != 'pemilik' && Auth::user()->role != 'administrator' ) return back()->with('gagal', 'Anda tidak memiliki akses!');
         $penjualan = Penjualan::find(decrypt($id));
 

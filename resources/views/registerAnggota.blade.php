@@ -1,245 +1,323 @@
-<!--
-
-=========================================================
-* Argon Dashboard - v1.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
-@isset ($message)
-    dd($message)
-@endisset
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>
-    Argon Dashboard - Free Dashboard for Bootstrap 4 by Creative Tim
-  </title>
-  <!-- Favicon -->
-  <link href="{{ asset('/admin-template/img/brand/favicon.png') }}" rel="icon" type="image/png">
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-  <!-- Icons -->
-  <link href="{{ asset('/admin-template/js/plugins/nucleo/css/nucleo.css') }}" rel="stylesheet" />
-  <link href="{{ asset('/admin-template/js/plugins/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet" />
-  <!-- CSS Files -->
-  <link href="{{ asset('/admin-template/css/argon-dashboard.css?v=1.1.0') }}" rel="stylesheet" />
+  <title>MyPenjualan | Halaman Login</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+  <style>
+    *{
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    body{
+        font-family: 'Poppins', sans-serif;
+        overflow: hidden;
+    }
+
+    .wave{
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .container{
+        width: 100vw;
+        height: 100vh;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap :7rem;
+        padding: 0 2rem;
+    }
+
+    .img{
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .login-content{
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      text-align: center;
+    }
+
+    .img img{
+      width: 500px;
+    }
+
+    form{
+      width: 360px;
+    }
+
+    .login-content img{
+        height: 100px;
+    }
+
+    .login-content h2{
+      margin: 15px 0;
+      color: #333;
+      text-transform: uppercase;
+      font-size: 2.9rem;
+    }
+
+    .login-content .input-div{
+      position: relative;
+        display: grid;
+        grid-template-columns: 7% 93%;
+        margin: 25px 0;
+        padding: 5px 0;
+        border-bottom: 2px solid #d9d9d9;
+    }
+
+    .login-content .input-div.one{
+      margin-top: 0;
+    }
+
+    .i{
+      color: #d9d9d9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .i i{
+      transition: .3s;
+    }
+
+    .input-div > div{
+        position: relative;
+      height: 45px;
+    }
+
+    .input-div > div > h5{
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #999;
+      font-size: 18px;
+      transition: .3s;
+    }
+
+    .input-div:before, .input-div:after{
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      width: 0%;
+      height: 2px;
+      background-color: #38d39f;
+      transition: .4s;
+    }
+
+    .input-div:before{
+      right: 50%;
+    }
+
+    .input-div:after{
+      left: 50%;
+    }
+
+    .input-div.focus:before, .input-div.focus:after{
+      width: 50%;
+    }
+
+    .input-div.focus > div > h5{
+      top: -5px;
+      font-size: 15px;
+    }
+
+    .input-div.focus > .i > i{
+      color: #38d39f;
+    }
+
+    .input-div > div > input{
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      outline: none;
+      background: none;
+      padding: 0.5rem 0.7rem;
+      font-size: 1.2rem;
+      color: #555;
+      font-family: 'poppins', sans-serif;
+    }
+
+    .input-div.pass{
+      margin-bottom: 4px;
+    }
+
+    a{
+      display: block;
+      text-align: right;
+      text-decoration: none;
+      color: #999;
+      font-size: 0.9rem;
+      transition: .3s;
+    }
+
+    a:hover{
+      color: #38d39f;
+    }
+
+    .btn{
+      display: block;
+      width: 100%;
+      height: 50px;
+      border-radius: 25px;
+      outline: none;
+      border: none;
+      background-image: linear-gradient(to right, #32be8f, #38d39f, #32be8f);
+      background-size: 200%;
+      font-size: 1.2rem;
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      text-transform: uppercase;
+      margin: 1rem 0;
+      cursor: pointer;
+      transition: .5s;
+    }
+    .btn:hover{
+      background-position: right;
+    }
+
+
+    @media screen and (max-width: 1050px){
+      .container{
+        grid-gap: 5rem;
+      }
+    }
+
+    @media screen and (max-width: 1000px){
+      form{
+        width: 290px;
+      }
+
+      .login-content h2{
+            font-size: 2.4rem;
+            margin: 8px 0;
+      }
+
+      .img img{
+        width: 400px;
+      }
+    }
+
+    @media screen and (max-width: 900px){
+      .container{
+        grid-template-columns: 1fr;
+      }
+
+      .img{
+        display: none;
+      }
+
+      .wave{
+        display: none;
+      }
+
+      .login-content{
+        justify-content: center;
+      }
+    }
+  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-
-<body class="bg-default">
-  <div class="main-content">
-    <!-- Navbar -->
-    <nav class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark">
-      <div class="container px-4">
-        <a class="navbar-brand" href="/index.html">
-          <img src="{{ asset('/admin-template/img/brand/white.png') }}" />
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse-main" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbar-collapse-main">
-          <!-- Collapse header -->
-          <div class="navbar-collapse-header d-md-none">
-            <div class="row">
-              <div class="col-6 collapse-brand">
-                <a href="/index.html">
-                  <img src="{{ asset('/admin-template/img/brand/blue.png') }}">
-                </a>
-              </div>
-              <div class="col-6 collapse-close">
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle sidenav">
-                  <span></span>
-                  <span></span>
-                </button>
-              </div>
-            </div>
-          </div>
-          <!-- Navbar items -->
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link nav-link-icon" href="{{ url('/') }}">
-                <i class="ni ni-planet"></i>
-                <span class="nav-link-inner--text">Halaman Utama</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-    <!-- Header -->
-    <div class="header bg-gradient-primary py-7 py-lg-8">
-      <div class="container">
-        <div class="header-body text-center mb-7">
-          <div class="row justify-content-center">
-            <div class="col-lg-5 col-md-6">
-              <h1 class="text-white">Selamat Datang</h1>
-              <p class="text-lead text-light">Daftarkan Perusahaanmu Sekarang dan Kelola Dengan Mudah.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="separator separator-bottom separator-skew zindex-100">
-        <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
-          <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
-        </svg>
-      </div>
+<body>
+  <img class="wave" src="{{ asset('/newAnggota/img/wave.png') }}">
+  <div class="container">
+    <div class="img">
+      <img src="{{ asset('/newAnggota/img/bg.svg') }}">
     </div>
-    <!-- Page content -->
-    <div class="container mt--8 pb-5">
-      <!-- Table -->
-      <div class="row justify-content-center">
-        <div class="col-lg-6 col-md-8">
-          <div class="card bg-secondary shadow border-0">
-            <div class="card-body px-lg-5 py-lg-5">
-              <div class="text-center text-muted mb-4">
-                <small>Silahkan Mendaftar</small>
-              </div>
-              <form role="form" method="post" action="{{ route('register') }}">
-                @csrf
-                <input type="hidden" name="token" value="{{ $token }}">
-                <div class="form-group">
-                  <div class="input-group input-group-alternative mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
-                    </div>
-                    <input class="form-control" name="name" placeholder="Nama" type="text">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="input-group input-group-alternative mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-email-83"></i></span>
-                    </div>
-                    <input class="form-control" name="email" placeholder="Email" type="email">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="input-group input-group-alternative mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
-                    </div>
-                    <input class="form-control" name="password" placeholder="Password" type="password">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="input-group input-group-alternative mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
-                    </div>
-                    <input class="form-control" name="password_confirmation" placeholder="Password" type="password">
-                  </div>
-                </div>
-                <span class="text-muted">Syarat dan Ketentuan</span>
-                <div class="card" style="max-height: 150px; overflow-y: scroll;">
-                  <div class="card-body" >
-                    <p style="font-size: 15px;">
-                      1. Akun Yang Mendaftar, lewat halaman ini, hanya boleh pemilik perusahaan.
-                    </p>
-                    <p style="font-size: 15px;">
-                      2. Jika anda mendaftar menggunakan halaman ini, maka anda akan dianggap sebagai pemilik perusahaan.
-                    </p>
-                    <p style="font-size: 15px;">
-                      3. Jika anda adalah seorang anggota dari sebuah perusahaan, maka nantinya akan ada halaman register tersendiri, yang akan dibagikan oleh pemilik perusahaan, halaman itu nantinya akan seperti undangan Grup Whatsapp.
-                    </p>
-                    <p style="font-size: 15px;">
-                      4. Gunakan Aplikasi Ini Dengan Bijak dan Jangan Untuk Disalahgunakan.
-                    </p>
-                    <p style="font-size: 15px;">
-                      5. Aplikasi ini dapat anda gunakan secara gratis dengan mengikuti persyaratan diatas.
-                    </p>
-                  </div>
-                </div>
-                <div class="row my-4">
-                  <div class="col-12">
-                    <div class="custom-control custom-control-alternative custom-checkbox">
-                      <input class="custom-control-input" id="customCheckRegister" type="checkbox">
-                      <label class="custom-control-label" for="customCheckRegister">
-                        <span class="text-muted">Saya Setuju Dengan Syarat dan Ketentuan Diatas.</span>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-                <div class="text-center">
-                  <button id="submit" type="button" class="btn btn-secondary mt-4">Buat Akun</button>
-                </div>
-              </form>
-            </div>
+    <div class="login-content">
+      <form method="post" action="{{ route('register') }}">
+        @csrf
+        <input type="hidden" name="token" value="{{ $token }}">
+
+        <img src="{{ asset('/newAnggota/img/avatar.svg') }}">
+        <h2 class="title">Welcome</h2>
+          <div class="input-div one">
+             <div class="i">
+                <i class="fas fa-user"></i>
+             </div>
+             <div class="div">
+                <h5>Nama</h5>
+                <input type="text" class="input" name="name" value="{{ old('name') }}">
+                @error('name')
+                  <p style="color: red; margin-top: 60px">{{ $message }}</p>
+                @enderror
+             </div>
           </div>
-        </div>
-      </div>
+          <div class="input-div one">
+             <div class="i">
+                <i class="fas fa-envelope"></i>
+             </div>
+             <div class="div">
+                <h5>Email</h5>
+                <input type="text" class="input" name="email" value="{{ old('email') }}">
+                @error('email')
+                  <p style="color: red; margin-top: 60px">{{ $message }}</p>
+                @enderror
+             </div>
+          </div>
+          <div class="input-div pass">
+             <div class="i"> 
+                <i class="fas fa-lock"></i>
+             </div>
+             <div class="div">
+                <h5>Password</h5>
+                <input type="password" class="input" name="password">
+                @error('password')
+                  <p style="color: red; margin-top: 60px">{{ $message }}</p>
+                @enderror
+             </div>
+          </div>
+          <div class="input-div pass">
+             <div class="i"> 
+                <i class="fas fa-lock"></i>
+             </div>
+             <div class="div">
+                <h5>Password Konfirmasi</h5>
+                <input type="password" class="input" name="password_confirmation">
+                @error('password_confirmation')
+                  <p style="color: red;">{{ $message }}</p>
+                @enderror
+             </div>
+          </div>
+        <input type="submit" class="btn" value="Daftar">
+      </form>
     </div>
   </div>
-  <!-- Footer -->
-  <footer class="py-5">
-    <div class="container">
-      <div class="row align-items-center justify-content-xl-between">
-        <div class="col-xl-6">
-          <div class="copyright text-center text-xl-left text-muted">
-            &copy; 2018 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
-          </div>
-        </div>
-        <div class="col-xl-6">
-          <ul class="nav nav-footer justify-content-center justify-content-xl-end">
-            <li class="nav-item">
-              <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Creative Tim</a>
-            </li>
-            <li class="nav-item">
-              <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>
-            </li>
-            <li class="nav-item">
-              <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Blog</a>
-            </li>
-            <li class="nav-item">
-              <a href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md" class="nav-link" target="_blank">MIT License</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </footer>
-  </div>
-  <!--   Core   -->
-  <script src="{{ asset('/admin-template/js/plugins/jquery/dist/jquery.min.js') }}"></script>
-  <script src="{{ asset('/admin-template/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
-  <!--   Optional JS   -->
-  <!--   Argon JS   -->
-  <script src="{{ asset('/admin-template/js/argon-dashboard.min.js?v=1.1.0') }}"></script>
-  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
   <script>
-    window.TrackJS &&
-      TrackJS.install({
-        token: "ee6fab19c5a04ac1a32a645abde4613a",
-        application: "argon-dashboard-free"
-      });
-  </script>
-  <script>
-    $(document).ready(function() {
-      let button = document.getElementById('submit');
+    const inputs = document.querySelectorAll(".input");
 
-      $('input[type="checkbox"]').click(function() {
-        if($(this).prop("checked") == true) {
-          button.setAttribute('type', 'submit');
-          button.classList.remove('btn-secondary');
-          button.classList.add('btn-primary');
-        }
-        else if($(this).prop("checked") == false) {
-          button.setAttribute('type', 'button');
-          button.classList.remove('btn-primary');
-          button.classList.add('btn-secondary');
-        }
-      })
+
+    function addcl(){
+      let parent = this.parentNode.parentNode;
+      parent.classList.add("focus");
+    }
+
+    function remcl(){
+      let parent = this.parentNode.parentNode;
+      if(this.value == ""){
+        parent.classList.remove("focus");
+      }
+    }
+
+
+    inputs.forEach(input => {
+      input.addEventListener("focus", addcl);
+      input.addEventListener("blur", remcl);
     });
+
   </script>
 </body>
-
 </html>

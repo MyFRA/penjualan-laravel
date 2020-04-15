@@ -21,6 +21,8 @@ class BarangController extends Controller
      */
     public function index()
     {
+        if( Auth::user()->role == 'author' ) return redirect('/admin/list-perusahaan');
+
         $data = array(
             'title' => 'Produk',
             'nav'   => 'produk',
@@ -40,6 +42,8 @@ class BarangController extends Controller
      */
     public function create()
     {
+        if( Auth::user()->role == 'author' ) return redirect('/admin/list-perusahaan');
+
         if( Auth::user()->role != 'pemilik' && Auth::user()->role != 'administrator' ) return back()->with('gagal', 'Kamu tidak memiliki akses');
         
         $data = array(
@@ -59,6 +63,8 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
+        if( Auth::user()->role == 'author' ) return redirect('/admin/list-perusahaan');
+
         if( Auth::user()->role != 'pemilik' && Auth::user()->role != 'administrator' ) return back()->with('gagal', 'Kamu tidak memiliki akses');
 
         $validator = Validator::make($request->all(), [
@@ -99,6 +105,8 @@ class BarangController extends Controller
      */
     public function show($id)
     {
+        if( Auth::user()->role == 'author' ) return redirect('/admin/list-perusahaan');
+
         $data = array(
             'title'     => 'Produk',
             'nav'       => 'produk',
@@ -118,6 +126,8 @@ class BarangController extends Controller
      */
     public function edit($id)
     {
+        if( Auth::user()->role == 'author' ) return redirect('/admin/list-perusahaan');
+
         if( Auth::user()->role != 'pemilik' && Auth::user()->role != 'administrator' ) return back()->with('gagal', 'Kamu tidak memiliki akses');
         $data = array(
             'title' => 'Produk',
@@ -139,6 +149,8 @@ class BarangController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if( Auth::user()->role == 'author' ) return redirect('/admin/list-perusahaan');
+
         if( Auth::user()->role != 'pemilik' && Auth::user()->role != 'administrator' ) return back()->with('gagal', 'Kamu tidak memiliki akses');
 
         $validator = Validator::make($request->all(), [
@@ -180,6 +192,8 @@ class BarangController extends Controller
      */
     public function destroy($id)
     {   
+        if( Auth::user()->role == 'author' ) return redirect('/admin/list-perusahaan');
+
         if( Auth::user()->role != 'pemilik' && Auth::user()->role != 'administrator' ) return back()->with('gagal', 'Kamu tidak memiliki akses');
         if( Penjualan::where('barang_id', decrypt($id))->count() >= 0 ) return back()->with('gagal', 'Produk tidak dapat dihapus');
         
@@ -194,6 +208,8 @@ class BarangController extends Controller
 
     public function storeProduct($request)
     {
+        if( Auth::user()->role == 'author' ) return redirect('/admin/list-perusahaan');
+
         if(empty($request->file())) {
             Barang::create([
                 'nama'          => $request->nama,
@@ -228,6 +244,8 @@ class BarangController extends Controller
 
     public function updateProduct($request, $id)
     {
+        if( Auth::user()->role == 'author' ) return redirect('/admin/list-perusahaan');
+        
         $data = Barang::find(decrypt($id));
 
         if(empty($request->file())) {

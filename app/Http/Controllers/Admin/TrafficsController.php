@@ -19,6 +19,8 @@ class TrafficsController extends Controller
      */
     public function index()
     {
+        if( Auth::user()->role == 'author' ) return redirect('/admin/list-perusahaan');
+
         $data = array(
             'nav' => 'traffics',
             'title' => 'Traffic',
@@ -38,6 +40,8 @@ class TrafficsController extends Controller
      */
     public function store(Request $request)
     {
+        if( Auth::user()->role == 'author' ) return redirect('/admin/list-perusahaan');
+
         if (Auth::user()->role != 'pemilik' && Auth::user()->role != 'administrator') {
             return back()->with('gagal', 'Maaf, Anda tidak memiliki akses!');
         } else {
@@ -73,6 +77,8 @@ class TrafficsController extends Controller
      */
     public function edit($id)
     {
+        if( Auth::user()->role == 'author' ) return redirect('/admin/list-perusahaan');
+
         return Traffic::find(decrypt($id));
     }
 
@@ -85,6 +91,8 @@ class TrafficsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if( Auth::user()->role == 'author' ) return redirect('/admin/list-perusahaan');
+
         if (Auth::user()->role != 'pemilik' && Auth::user()->role != 'administrator') {
             return back()->with('gagal', 'Maaf, Anda tidak memiliki akses!');
         } else {
@@ -121,6 +129,8 @@ class TrafficsController extends Controller
      */
     public function destroy($id)
     {
+        if( Auth::user()->role == 'author' ) return redirect('/admin/list-perusahaan');
+        
         $decrypt = decrypt($id);   
         if( Penjualan::where('traffics_id', $decrypt)->count() > 0 ) return back()->with('gagal', 'Traffic tidak dapat dihapus!');
 

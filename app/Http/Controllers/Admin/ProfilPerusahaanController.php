@@ -19,6 +19,8 @@ class ProfilPerusahaanController extends Controller
      */
     public function index()
     {
+        if( Auth::user()->role == 'author' ) return redirect('/admin/list-perusahaan');
+
         $data = array(
             'nav'           => 'profil-perusahaan',
             'title'         => 'Profil Perusahaan',
@@ -37,6 +39,8 @@ class ProfilPerusahaanController extends Controller
      */
     public function edit($id)
     {
+        if( Auth::user()->role == 'author' ) return redirect('/admin/list-perusahaan');
+
         if( Auth::user()->role != 'pemilik' && Auth::user()->role != 'administrator' ) return back()->with('gagal', 'Kamu tidak memiliki akses');
 
         $data = array(
@@ -58,6 +62,8 @@ class ProfilPerusahaanController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if( Auth::user()->role == 'author' ) return redirect('/admin/list-perusahaan');
+
         if( Auth::user()->role != 'pemilik' && Auth::user()->role != 'administrator' ) return back()->with('gagal', 'Kamu tidak memiliki akses');
 
         $validator = Validator::make($request->all(), [
@@ -107,6 +113,8 @@ class ProfilPerusahaanController extends Controller
 
     public function updateProfilPerusahaan($request, $id)
     {
+        if( Auth::user()->role == 'author' ) return redirect('/admin/list-perusahaan');
+        
         $data = Perusahaan::find(decrypt($id));
 
         if( is_null($request->file('logo')) ) {

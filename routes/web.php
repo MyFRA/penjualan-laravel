@@ -72,6 +72,11 @@ Route::middleware(['auth'])->group(function () {
         // Top Kontribusi Controller
         Route::resource('/admin/top-kontribusi', 'Admin\TopKontribusiController')->only(['index']);
 
+        // Credit Controller
+        Route::get('/admin/credit', 'Admin\CreditController@index');
+
+        // List Perusahaan Controller
+        Route::get('/admin/list-perusahaan', 'Admin\ListPerusahaanController@index');
     });
 
 });

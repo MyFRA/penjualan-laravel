@@ -18,6 +18,8 @@ class KasController extends Controller
      */
     public function index()
     {
+        if( Auth::user()->role == 'author' ) return redirect('/admin/list-perusahaan');
+
         $data = array(
             'nav'       => 'kas',
             'title'     => 'Kas',
@@ -37,6 +39,8 @@ class KasController extends Controller
      */
     public function store(Request $request)
     {
+        if( Auth::user()->role == 'author' ) return redirect('/admin/list-perusahaan');
+        
         if ( Auth::user()->role != 'pemilik' && Auth::user()->role != 'administrator' ) return back()->with('Anda tidak memiliki akses!');
 
         $validator = Validator::make($request->all(), [

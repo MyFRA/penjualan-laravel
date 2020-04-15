@@ -2,38 +2,109 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>Silahkan Masuk</title>
-  <link rel="stylesheet" href="{{ asset('/css/login.css') }}">
+  <title>MyPenjualan | Halaman Registrasi</title>
+  
 
 </head>
 <body>
 <!-- partial:index.partial.html -->
-<div class="wrapper fadeInDown">
-  <div id="formContent">
-    <!-- Tabs Titles -->
-    <h2 class="active"> Silahkan Masuk </h2>
+<html>
+  <head>
+    <link
+      href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+    </style>
+    <script
+      src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js"
+      defer
+    ></script>
+  </head>
 
-    <!-- Icon -->
-    <div class="fadeIn first">
-      <img src="{{ asset('/welcomes/pict.png') }}" id="icon" alt="User Icon" />
+  <body class="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
+    <div
+      class="max-w-screen-xl m-0 sm:m-20 bg-white shadow sm:rounded-lg flex justify-center flex-1"
+    >
+      <div class="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
+        <div class="mt-12 flex flex-col items-center">
+          <h1 class="text-2xl xl:text-3xl font-extrabold">
+            Halaman Login
+          </h1>
+          <div class="w-full flex-1 ">
+            <div class="my-12 border-b text-center">
+              <div
+                class="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2"
+              >
+                Silahkan Masuk
+              </div>
+            </div>
+            <form role="form" method="post" action="{{ route('login') }}">
+              @csrf
+              <input type="hidden" name="token">
+            <div class="mx-auto max-w-xs">
+              <input>
+              <input
+                class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+                name="email"
+                type="email"
+                placeholder="Email"
+              />
+              @error('email')
+                <p style="color: red">{{ $message }}</p>
+              @enderror
+              <input
+                class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+                name="password"
+                type="password"
+                placeholder="Password"
+              />
+              @error('password')
+                <p style="color: red">{{ $message }}</p>
+              @enderror
+              <button
+                class="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                type="submit"
+              >
+                <span class="ml-3">
+                  Masuk
+                </span>
+              </button>
+            </form>
+              <p class="mt-6 text-xs text-gray-600 text-center">
+                Belum mempunyai akun?
+                <a href="{{ url('/register') }}" style="color: blue" class="border-b border-gray-500 border-dotted">
+                  Daftar
+                </a>
+{{--                 <a href="#" class="border-b border-gray-500 border-dotted">
+                  Privacy Policy
+                </a> --}}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex-1 bg-indigo-100 text-center hidden lg:flex">
+        <div
+          class="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat"
+          style="background-image: url('https://storage.googleapis.com/devitary-image-host.appspot.com/15848031292911696601-undraw_designer_life_w96d.svg');"
+        ></div>
+      </div>
     </div>
-
-    <!-- Login Form -->
-    <form method="POST" action="{{ route('login') }}">
-    	@csrf
-      <input type="email" id="login" class="fadeIn second" name="email" placeholder="Email">
-      <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password">
-      <button type="submit" class="fadeIn fourth">Masuk</button>
-    </form>
-
-    <!-- Remind Passowrd -->
-    <div id="formFooter">
-      <a class="underlineHover" href="#">Lupa Kata Sandi</a>
-    </div>
-
-  </div>
-</div>
+  </body>
+</html>
 <!-- partial -->
-
+  
 </body>
 </html>

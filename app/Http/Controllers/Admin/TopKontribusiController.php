@@ -17,6 +17,8 @@ class TopKontribusiController extends Controller
      */
     public function index()
     {
+        if( Auth::user()->role == 'author' ) return redirect('/admin/list-perusahaan');
+        
         $data = array(
             'nav'           => 'top-kontribusi',
             'title'         => 'Top Kontribusi',

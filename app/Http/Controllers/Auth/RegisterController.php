@@ -83,9 +83,9 @@ class RegisterController extends Controller
         ( is_null($data['token']) ) ? $role = 'pemilik' : $role = 'anggota';
 
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'name'          => $data['name'],
+            'email'         => $data['email'],
+            'password'      => Hash::make($data['password']),
             'perusahaan_id' => $perusahaan_id,
             'role'          => $role,
         ]);

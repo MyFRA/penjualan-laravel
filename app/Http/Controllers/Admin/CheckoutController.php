@@ -19,6 +19,8 @@ class CheckoutController extends Controller
      */
     public function index()
     {
+        if( Auth::user()->role == 'author' ) return redirect('/admin/list-perusahaan');
+
         if( Auth::user()->role == 'anggota' ) return redirect('/admin/dashboard')->with('gagal', 'kamu tidak memiliki akses');
 
         $data = array(
@@ -44,6 +46,8 @@ class CheckoutController extends Controller
      */
     public function store(Request $request)
     {
+        if( Auth::user()->role == 'author' ) return redirect('/admin/list-perusahaan');
+        
         if( Auth::user()->role == 'anggota' ) return redirect('/admin/dashboard')->with('gagal', 'kamu tidak memiliki akses');
 
         $keranjang = Keranjang::select('keranjang.*', 'barang.nama as nama_barang')

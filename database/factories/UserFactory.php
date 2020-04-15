@@ -29,7 +29,7 @@ $factory->define(User::class, function (Faker $faker) {
         'name'          => $faker->name,
         'email'         => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
-        'password'      => bcrypt('maturnuwun'), // password
+        'password'      => bcrypt('mypenjualan'), // password
         'remember_token'=> Str::random(10),
     	'umur'          => $faker->numberBetween(16, 60),
     	'alamat'        => $faker->state,

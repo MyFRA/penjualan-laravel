@@ -20,7 +20,6 @@
 				<br>
 				<ul>
 					<li><h2 >Oke, dibuat pada Rabu, 15 April 2020</h2></li>
-					<li><h2 >Untuk landing page, halaman register, halaman login, dan halaman admin saya menggunakan template</h2></li>
 				</ul>
             </div>
           </div>

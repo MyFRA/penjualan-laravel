@@ -53,6 +53,7 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {   
+        $tokenPerusahaan = [];
         $dataPerusahaan = Perusahaan::get();
         foreach ($dataPerusahaan as $dataPer1) {
             $tokenPerusahaan[] = $dataPer1->token;

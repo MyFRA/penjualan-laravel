@@ -9,4 +9,5 @@ class Perusahaan extends Model
     protected $table = 'perusahaan';
 
     protected $fillable = ['nama', 'token', 'slogan', 'logo', 'telp', 'email', 'fax', 'site', 'facebook', 'instagram', 'alamat', 'deskripsi', 'sejarah'];
+
 }

@@ -54,7 +54,7 @@
             </li>
             <li class="nav-item {{ ($nav == 'produk') ? 'active' : '' }}">
               <a class="nav-link" href="{{ url('/admin/produk') }}">
-                <i class="ni ni-key-25 text-info"></i> Produk
+                <i class="fas fa-shopping-bag text-info"></i> Produk
               </a>
             </li>
             <li class="nav-item {{ ($nav == 'profil-perusahaan') ? 'active' : '' }}">

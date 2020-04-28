@@ -50,7 +50,7 @@
                           </div>
                         @else
                           <a href="#" class="avatars rounded-circle mr-3">
-                            <img class="img-thumbnail img-fluid" src="{{ asset('/storage/profil_user') }}/{{ $sell->gambar }}" alt="Card image cap">
+                            <img class="img-thumbnail img-fluid" src="{{ asset('/storage/foto_produk') }}/{{ $sell->gambar }}" alt="Card image cap">
                           </a>
                         @endif
                       </div>

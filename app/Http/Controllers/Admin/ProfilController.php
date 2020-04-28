@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 
 use App\User;
+use App\Models\Perusahaan;
 
 class ProfilController extends Controller
 {
@@ -23,6 +24,7 @@ class ProfilController extends Controller
             'title' => 'Profil',
             'nav'   => 'profil',
             'user'  => Auth::user(),
+            'perusahaan' => Perusahaan::find(Auth::user()->perusahaan_id),
         );
 
         return view('admin.pages.profil.index', $data);

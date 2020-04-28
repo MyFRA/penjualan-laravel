@@ -114,7 +114,7 @@
                     {{ $traffic->nama }}
                   </th>
                   <th>
-                    {{ $traffic->jumlahOrder }}
+                    {{ $traffic->jumlah }}
                   </th>
                 </tr>
               @endforeach
@@ -262,7 +262,7 @@
                     {{ $provinsi->provinsi }}
                   </th>
                   <th>
-                    {{ $provinsi->jumlahProvinsi }}
+                    {{ $provinsi->jumlah }}
                   </th>
                 </tr>
               @endforeach
@@ -298,7 +298,7 @@
                     {{ $kabupaten->kabupaten }}
                   </th>
                   <th>
-                    {{ $kabupaten->jumlahKabupaten }}
+                    {{ $kabupaten->jumlah }}
                   </th>
                 </tr>
               @endforeach
@@ -336,7 +336,7 @@
                     {{ $kecamatan->kecamatan }}
                   </th>
                   <th>
-                    {{ $kecamatan->jumlahKecamatan }}
+                    {{ $kecamatan->jumlah }}
                   </th>
                 </tr>
               @endforeach
@@ -372,7 +372,7 @@
                     {{ $kelurahan->kelurahan }}
                   </th>
                   <th>
-                    {{ $kelurahan->jumlahKelurahan }}
+                    {{ $kelurahan->jumlah }}
                   </th>
                 </tr>
               @endforeach

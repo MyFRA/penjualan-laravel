@@ -14,7 +14,7 @@ class AddAndDeleteSomeColumnOnTablePerusahaan extends Migration
     public function up()
     {
         Schema::table('perusahaan', function (Blueprint $table) {
-            $table->text('sejarah')->after('deskripsi');
+            $table->text('sejarah')->nullable()->after('deskripsi');
             $table->dropColumn('linkedin');
         });
     }

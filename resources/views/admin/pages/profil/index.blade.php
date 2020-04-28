@@ -29,7 +29,7 @@
                 {{ $user->alamat }} {{', ' .  strtoupper($user->negara) }}
               </div>
               <div class="h5 mt-4">
-                Monokrom - {{ $user->role }}
+                {{ $perusahaan->nama }} - {{ $user->role }}
               </div>
               <div>
                 {{ $user->instansiasi }}

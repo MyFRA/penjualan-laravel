@@ -57,6 +57,11 @@
                 <i class="fas fa-shopping-bag text-info"></i> Produk
               </a>
             </li>
+            <li class="nav-item {{ ($nav == 'cek-ongkir') ? 'active' : '' }}">
+              <a class="nav-link" href="{{ url('/admin/cek-ongkir') }}">
+                <i class="fas fa-box text-info"></i> Cek Ongkir
+              </a>
+            </li>
             <li class="nav-item {{ ($nav == 'profil-perusahaan') ? 'active' : '' }}">
               <a class="nav-link" href="{{ url('/admin/profil-perusahaan') }}">
                 <i class="fas fa-building"></i> Profil Perusahaan

@@ -77,6 +77,10 @@ Route::middleware(['auth'])->group(function () {
 
         // List Perusahaan Controller
         Route::get('/admin/list-perusahaan', 'Admin\ListPerusahaanController@index');
+
+        // Cek Ongkir Controller
+        Route::get('/admin/cek-ongkir', 'Admin\CekOngkirController@index')->name('cek-ongkir');
+        Route::post('/admin/cek-ongkir', 'Admin\CekOngkirController@cek');
     });
 
 });

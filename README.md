@@ -1,5 +1,5 @@
 # Penjualan Laravel
-
+<br>
  <p align="center">
  <a href="https://ibb.co/wLtMZXx"><img src="https://i.ibb.co/3sKB5qL/dashboard.png" alt="dashboard" border="0"></a>
  </p>
@@ -45,15 +45,15 @@ Clone atau download repository
 
 `$ git clone https://github.com/MyFRA/penjualan-laravel.git`
 
-Duplikat atau salin .env.example ke .env
+Duplikat atau salin file .env.example ke .env
 
 Setting koneksi database di dalam file .env
 Setelah itu jalankan perintah berikut.
 
-`$ composer install`
-`$ php artisan key:generate`
-`$ php artisan migrate`
-`$ php artisan db:seed`
+`$ composer install` <br>
+`$ php artisan key:generate` <br>
+`$ php artisan migrate` <br>
+`$ php artisan db:seed` <br>
 `$ php artisan storage:link`
 
 Agar fitur cek ongkir berjalan lancar, masukan key api rajaongkir, di dalam file .env
